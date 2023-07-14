@@ -1,13 +1,11 @@
 import { createRoot } from "react-dom/client";
 
+import { MainView } from "./components/main-view/main-view";
+
 import "./index.scss";
 
 const ChaseflixApplication = () => {
-  return (
-    <div className="chaseflix">
-      <div>Hello</div>
-    </div>
-  );
+  return <MainView />;
 };
 
 const container = document.querySelector("#root");
