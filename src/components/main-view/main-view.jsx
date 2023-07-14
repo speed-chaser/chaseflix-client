@@ -20,6 +20,7 @@ export const MainView = () => {
             Genre: movie.Genre.Name,
             Director: movie.Director.Name,
             Featured: movie.Featured.toString(),
+            ImagePath: movie.ImagePath,
             Similar: movie.Similar,
           };
         });

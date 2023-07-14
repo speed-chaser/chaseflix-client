@@ -13,7 +13,19 @@
     "process": "^0.11.10"
   },
   "dependencies": {
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "parcel": {
+    "source": {
+      "include": [
+        "/img/*.jpg",
+        "/img/*.jpeg",
+        "/img/*.png",
+        "/img/*.gif",
+        "/img/*.svg"
+      ]
+    }
   }
 }

@@ -1,3 +1,5 @@
+import React from "react";
+
 export const MovieView = ({ movie, onBackClick, movies }) => {
   const similarMovies = movies.filter(
     (m) => m.Genre === movie.Genre && m.Title !== movie.Title
@@ -6,7 +8,7 @@ export const MovieView = ({ movie, onBackClick, movies }) => {
   return (
     <div>
       <div>
-        <img src={movie.image} />
+        <img src={movie.ImagePath} alt="Poster of Movie" />
       </div>
       <div>
         <h1>{movie.Title}</h1>
@@ -23,10 +25,10 @@ export const MovieView = ({ movie, onBackClick, movies }) => {
         <span>{movie.Director}</span>
       </div>
       <div>
+        <span>Featured: </span>
         <span>{movie.Featured}</span>
       </div>
       <div>
-        <hr />
         <hr />
         <h2>Similar Movies</h2>
         {similarMovies.map((similarMovie) => (
