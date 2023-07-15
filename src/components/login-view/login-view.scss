@@ -1,0 +1,20 @@
+$text-light: white;
+$text-light-fade: rgba(255, 255, 255, 0.4);
+
+.form-control {
+  color: $text-light;
+}
+
+.form-control:focus {
+  color: $text-light;
+}
+
+.form-control:not(active) {
+  color: $text-light;
+}
+
+.subtext {
+  color: $text-light-fade;
+}
+
+@import "~bootstrap/scss/bootstrap.scss";

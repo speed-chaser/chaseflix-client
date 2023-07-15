@@ -1,0 +1,17 @@
+$bgcolor: rgba(0, 0, 0, 0.2);
+$text-light: white;
+$text-light-fade: rgba(255, 255, 255, 0.4);
+
+img {
+  width: 100%;
+}
+
+.title {
+  color: $text-light;
+}
+
+.subtext {
+  color: $text-light-fade;
+}
+
+@import "~bootstrap/scss/bootstrap.scss";
