@@ -17,17 +17,8 @@
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",
-    "react-dom": "^18.2.0"
-  },
-  "parcel": {
-    "source": {
-      "include": [
-        "/img/*.jpg",
-        "/img/*.jpeg",
-        "/img/*.png",
-        "/img/*.gif",
-        "/img/*.svg"
-      ]
-    }
+    "react-dom": "^18.2.0",
+    "react-router": "9.7.2",
+    "react-router-dom": "9.7.2"
   }
 }

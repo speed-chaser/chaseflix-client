@@ -2,8 +2,16 @@ $bgcolor: rgba(0, 0, 0, 0.2);
 $text-light: white;
 $text-light-fade: rgba(255, 255, 255, 0.4);
 
+$body-bg: #020d0f;
+$primary: #1a6548;
+
 img {
   width: 100%;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 .title {

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Link from "react-router-dom";
 
 export const SignupView = () => {
   const [Username, setUsername] = useState("");
@@ -40,11 +41,10 @@ export const SignupView = () => {
   };
 
   return (
-    <Form className="text-light" onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       <Form.Group controlId="formSignUsername">
         <Form.Label>Username</Form.Label>
         <Form.Control
-          className="text-light"
           type="text"
           value={Username}
           onChange={(e) => setUsername(e.target.value)}
@@ -55,7 +55,6 @@ export const SignupView = () => {
       <Form.Group controlId="formSignPassword">
         <Form.Label>Password</Form.Label>
         <Form.Control
-          className="text-light"
           type="password"
           value={Password}
           onChange={(e) => setPassword(e.target.value)}
@@ -66,7 +65,6 @@ export const SignupView = () => {
       <Form.Group controlId="formSignEmail">
         <Form.Label>Email</Form.Label>
         <Form.Control
-          className="text-light"
           type="email"
           value={Email}
           onChange={(e) => setEmail(e.target.value)}
@@ -85,6 +83,7 @@ export const SignupView = () => {
       <Button variant="primary" type="submit">
         Submit
       </Button>
+      Already registered? <Link to="/login">Login</Link>
     </Form>
   );
 };
