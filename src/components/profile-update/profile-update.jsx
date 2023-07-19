@@ -22,7 +22,11 @@ export const ProfileUpdate = ({ user, token, setUser }) => {
     };
 
     fetch(
+<<<<<<< Updated upstream
       `https://chaseflix-481df0d77a4b.herokuapp.com/users/${user._id}/update`,
+=======
+      `https://chaseflix-481df0d77a4b.herokuapp.com/users/${user.Username}/update`,
+>>>>>>> Stashed changes
       {
         method: "PUT",
         headers: {

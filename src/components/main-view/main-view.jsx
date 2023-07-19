@@ -144,7 +144,28 @@ export const MainView = () => {
               </>
             }
           />
+<<<<<<< Updated upstream
 
+=======
+          <Route
+            path="/users/:Username/update"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" />
+                ) : (
+                  <Col md={5}>
+                    <ProfileUpdate
+                      user={user}
+                      token={token}
+                      setUser={setUser}
+                    />
+                  </Col>
+                )}
+              </>
+            }
+          />
+>>>>>>> Stashed changes
           <Route
             path="/login"
             element={
