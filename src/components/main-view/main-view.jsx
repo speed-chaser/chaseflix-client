@@ -129,8 +129,6 @@ export const MainView = () => {
       });
   };
 
-  // Rest of the component...
-
   if (token && !dataLoaded) {
     // If the token is available but data is not fetched yet, show loading
     return <div>Loading...</div>;
