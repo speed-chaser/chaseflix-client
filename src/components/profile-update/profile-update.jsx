@@ -22,7 +22,7 @@ export const ProfileUpdate = ({ user, token, setUser }) => {
     };
 
     fetch(
-      `https://chaseflix-481df0d77a4b.herokuapp.com/users/${user._id}/update`,
+      `https://chaseflix-481df0d77a4b.herokuapp.com/users/${user.Username}`,
       {
         method: "PUT",
         headers: {

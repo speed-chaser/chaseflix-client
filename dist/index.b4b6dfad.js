@@ -46553,7 +46553,7 @@ const ProfileUpdate = ({ user, token, setUser })=>{
             Email: Email,
             Birthday: Birthday
         };
-        fetch(`https://chaseflix-481df0d77a4b.herokuapp.com/users/${user._id}/update`, {
+        fetch(`https://chaseflix-481df0d77a4b.herokuapp.com/users/${user.Username}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
