@@ -5,6 +5,7 @@ import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { ProfileView } from "../profile-view/profile-view";
 import { ProfileUpdate } from "../profile-update/profile-update";
+import { UserList } from "../user-list/user-list";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
@@ -16,7 +17,7 @@ export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
 
-  //Useed to set movies from API into array
+  //Used to set movies from API into array
   const [movies, setMovies] = useState([]);
   const [user, setUser] = useState(storedUser ? storedUser : null);
 
@@ -29,10 +30,12 @@ export const MainView = () => {
   console.log("users:", users);
   console.log("user:", user);
 
-  /*const updatedUser = (user) => {
-    setUser(user);
-    localStorage.setItem("user", JSON.stringify(user));
-  };*/
+  const onLogout = () => {
+    localStorage.clear();
+  };
+
+  console.log("MainView user:", user);
+  console.log("MainView setUser:", setUser);
 
   //const [similarMovies, setSimilarMovies] = useState([]);
   useEffect(() => {
@@ -89,7 +92,14 @@ export const MainView = () => {
 
   return (
     <BrowserRouter>
-      <NavigationBar user={user} onLoggedOut={() => setUser(null)} />
+      <NavigationBar
+        user={user}
+        onLoggedOut={() => {
+          setUser(null);
+          setToken(null);
+          localStorage.clear();
+        }}
+      />
       <Row className="justify-content-md-center">
         <Routes>
           <Route
@@ -97,17 +107,34 @@ export const MainView = () => {
             element={
               <>
                 {user ? (
-                  <Navigate to="/movies" />
+                  <Navigate to="/" />
                 ) : (
-                  <Col md={5}>
+                  <Col className="text-light" md={5}>
                     Sign up:
-                    <SignupView />
+                    <SignupView user={user} />
                   </Col>
                 )}
               </>
             }
           />
-
+          <Route
+            path="/update"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" />
+                ) : (
+                  <Col md={5}>
+                    <ProfileUpdate
+                      user={user}
+                      token={token}
+                      setUser={setUser}
+                    />
+                  </Col>
+                )}
+              </>
+            }
+          />
           <Route
             path="/login"
             element={
@@ -150,7 +177,13 @@ export const MainView = () => {
                   <>
                     {movies.map((movie) => (
                       <Col className="mb-4" key={movie._id} md={3}>
-                        <MovieCard movie={movie} />
+                        <MovieCard
+                          movie={movie}
+                          key={movie._id}
+                          user={user}
+                          token={token}
+                          setUser={setUser}
+                        />
                       </Col>
                     ))}
                   </>
@@ -167,9 +200,52 @@ export const MainView = () => {
                 ) : (
                   <>
                     <Col md={12}>
-                      <ProfileView user={user} movies={movies} />
+                      <ProfileView
+                        user={user}
+                        token={token}
+                        movies={movies}
+                        setUser={setUser}
+                      />
                     </Col>
                   </>
+                )}
+              </>
+            }
+          />
+
+          <Route
+            path="/users"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : (
+                  <>
+                    {users.map((user) => (
+                      <Col className="mb-4" key={user._id} md={4}>
+                        <UserList user={user} />
+                      </Col>
+                    ))}
+                  </>
+                )}
+              </>
+            }
+          />
+          <Route
+            path="/users/:Username"
+            element={
+              <>
+                {user ? (
+                  <Col md={12}>
+                    <ProfileView
+                      setUser={setUser}
+                      user={user}
+                      token={token}
+                      movies={movies}
+                    />
+                  </Col>
+                ) : (
+                  <Navigate to="/login" replace />
                 )}
               </>
             }

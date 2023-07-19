@@ -16,7 +16,7 @@ export const MovieView = ({ movies }) => {
   }
 
   return (
-    <div>
+    <div className="text-light">
       <div>
         <img loading="lazy" src={movie.ImageBackdrop} alt="Poster of Movie" />
       </div>

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import "./profile-update.scss";
 
-/*export const ProfileUpdate = ({ user, token, updatedUser }) => {
+export const ProfileUpdate = ({ user, token, setUser }) => {
   const [Username, setUsername] = useState("");
   const [Password, setPassword] = useState("");
   const [Email, setEmail] = useState("");
@@ -22,36 +23,33 @@ import Form from "react-bootstrap/Form";
       `https://chaseflix-481df0d77a4b.herokuapp.com/users/${user.Username}`,
       {
         method: "PUT",
-        body: JSON.stringify(data),
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
+        body: JSON.stringify(data),
       }
     )
       .then((response) => {
         if (response.ok) {
           alert("Data updated!");
           return response.json();
+        } else {
+          alert("Update failed :(");
         }
       })
-      .then((user) => {
-        // Debugging console logs
-        console.log("new user data:", user);
-        setTimeout(function () {
-          window.location.replace("/");
-        }, 2000);
-
-        updatedUser(user);
-      })
-      .catch((e) => {
-        console.error("Error occurred during update: ", error);
-        alert("update failed :(");
+      .then((data) => {
+        localStorage.setItem("user", JSON.stringify(data));
+        setUser(data);
+        window.location.replace("/");
       });
   };
 
   return (
-    <div style={{ display: "block", position: "initial" }}>
+    <div
+      className="text-light"
+      style={{ display: "block", position: "initial" }}
+    >
       <h3>Update profile</h3>
       <br />
       <Form onSubmit={handleUpdateSubmit}>
@@ -63,6 +61,7 @@ import Form from "react-bootstrap/Form";
             onChange={(e) => setUsername(e.target.value)}
             required
             minLength="3"
+            className="text-light"
           />
         </Form.Group>
         <Form.Group controlId="formUpPassword">
@@ -73,6 +72,7 @@ import Form from "react-bootstrap/Form";
             onChange={(e) => setPassword(e.target.value)}
             required
             minLength="8"
+            className="text-light"
           />
         </Form.Group>
         <Form.Group controlId="formUpEmail">
@@ -82,6 +82,7 @@ import Form from "react-bootstrap/Form";
             value={Email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            className="text-light"
           />
         </Form.Group>
         <Form.Group controlId="formUpBirthday">
@@ -91,6 +92,7 @@ import Form from "react-bootstrap/Form";
             value={Birthday}
             onChange={(e) => setBirthday(e.target.value)}
             required
+            className="text-light"
           />
         </Form.Group>
         <Button variant="primary" type="submit">
@@ -104,4 +106,4 @@ import Form from "react-bootstrap/Form";
       </Form>
     </div>
   );
-};*/
+};

@@ -13203,6 +13203,12 @@ button {
   color: #fff3;
 }
 
+.favorite-button, .unfavorite-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
 :root, [data-bs-theme="light"] {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;

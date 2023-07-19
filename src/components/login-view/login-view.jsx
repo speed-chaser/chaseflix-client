@@ -33,8 +33,6 @@ export const LoginView = ({ onLoggedIn }) => {
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("token", data.token);
           onLoggedIn(data.user, data.token);
-
-          window.location.reload();
         } else {
           alert("No such user");
         }
@@ -45,7 +43,7 @@ export const LoginView = ({ onLoggedIn }) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form className="light-text" onSubmit={handleSubmit}>
       <Form.Group controlId="formUsername">
         <Form.Label>Username</Form.Label>
         <Form.Control
@@ -53,6 +51,7 @@ export const LoginView = ({ onLoggedIn }) => {
           value={Username}
           onChange={(e) => setUsername(e.target.value)}
           required
+          className="text-light"
         />
       </Form.Group>
       <Form.Group controlId="formPassword">
@@ -62,6 +61,7 @@ export const LoginView = ({ onLoggedIn }) => {
           value={Password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          className="text-light"
         />
       </Form.Group>
       <Button variant="primary" type="submit">
