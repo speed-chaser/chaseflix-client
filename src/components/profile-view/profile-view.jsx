@@ -32,7 +32,6 @@ export const ProfileView = ({ token, user, movies, setUser }) => {
   const handleShowUpdateModal = () => setShowUpdateModal(true);
 
   useEffect(() => {
-<<<<<<< Updated upstream
     if (!profileUsername) return;
     console.log("Username:", profileUsername);
     fetch(
@@ -44,16 +43,6 @@ export const ProfileView = ({ token, user, movies, setUser }) => {
         },
       }
     )
-=======
-    if (!Username) return;
-    console.log("Username:", Username);
-    fetch(`https://chaseflix-481df0d77a4b.herokuapp.com/users/${Username}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
->>>>>>> Stashed changes
       .then((response) => {
         if (response.ok) return response.json();
         throw new Error("User not found");
@@ -235,17 +224,9 @@ export const ProfileView = ({ token, user, movies, setUser }) => {
           <div>Birthday: {viewedUser && formattedDate}</div>
           {isOwnProfile && (
             <>
-<<<<<<< Updated upstream
               <Button variant="primary" onClick={handleShowUpdateModal}>
                 Edit profile
               </Button>
-=======
-              <Form method="get" action={`/users/${user.username}/update`}>
-                <Button variant="primary" type="submit">
-                  Edit profile
-                </Button>
-              </Form>
->>>>>>> Stashed changes
               <br />
               <br />
               <Button className="mb-3" variant="danger" onClick={handleShow}>
