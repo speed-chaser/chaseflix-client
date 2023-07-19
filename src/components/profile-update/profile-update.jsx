@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "./profile-update.scss";
@@ -12,6 +12,8 @@ export const ProfileUpdate = ({ user, token, setUser }) => {
   const handleUpdateSubmit = (event) => {
     event.preventDefault();
 
+    console.log("profile-update User:", user);
+
     const data = {
       Username: Username,
       Password: Password,
@@ -20,7 +22,7 @@ export const ProfileUpdate = ({ user, token, setUser }) => {
     };
 
     fetch(
-      `https://chaseflix-481df0d77a4b.herokuapp.com/users/${user.Username}`,
+      `https://chaseflix-481df0d77a4b.herokuapp.com/users/${user._id}/update`,
       {
         method: "PUT",
         headers: {

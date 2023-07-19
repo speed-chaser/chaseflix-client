@@ -9,29 +9,40 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 
 export const ProfileView = ({ token, user, movies, setUser }) => {
-  const { Username } = useParams();
+  const { Username: profileUsername } = useParams();
   const [viewedUser, setViewedUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [updateUsername, setUpdateUsername] = useState("");
+  const [Password, setPassword] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Birthday, setBirthday] = useState("");
 
   //Favorite movie calculator
   const favoriteMovieList = movies.filter((m) => {
     return viewedUser && viewedUser.FavoriteMovies.includes(m._id);
   });
 
-  //Modal states
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // Modal states
+  const [showModal, setShowModal] = useState(false);
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
+
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const handleCloseUpdateModal = () => setShowUpdateModal(false);
+  const handleShowUpdateModal = () => setShowUpdateModal(true);
 
   useEffect(() => {
-    if (!Username) return;
-
-    fetch(`https://chaseflix-481df0d77a4b.herokuapp.com/users/${Username}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    if (!profileUsername) return;
+    console.log("Username:", profileUsername);
+    fetch(
+      `https://chaseflix-481df0d77a4b.herokuapp.com/users/${profileUsername}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
       .then((response) => {
         if (response.ok) return response.json();
         throw new Error("User not found");
@@ -44,7 +55,45 @@ export const ProfileView = ({ token, user, movies, setUser }) => {
         console.error("Error fetching user:", error);
         setLoading(false);
       });
-  }, [Username, token]);
+  }, [profileUsername, token]);
+
+  const handleUpdateSubmit = (event) => {
+    event.preventDefault();
+
+    console.log("profile-update User:", user);
+
+    const data = {
+      Username: updateUsername,
+      Password: Password,
+      Email: Email,
+      Birthday: Birthday,
+    };
+
+    fetch(
+      `https://chaseflix-481df0d77a4b.herokuapp.com/users/${user.Username}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          alert("Data updated!");
+          return response.json();
+        } else {
+          alert("Update failed :(");
+        }
+      })
+      .then((data) => {
+        localStorage.setItem("user", JSON.stringify(data));
+        setUser(data);
+        window.location.reload();
+      });
+  };
 
   const handleDeleteSubmit = (event) => {
     event.preventDefault();
@@ -70,7 +119,7 @@ export const ProfileView = ({ token, user, movies, setUser }) => {
         }
       })
       .catch((e) => {
-        alert("something went wreong");
+        alert("something went wrong");
         window.location.reload();
       });
   };
@@ -93,7 +142,65 @@ export const ProfileView = ({ token, user, movies, setUser }) => {
 
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
+      <Modal
+        show={showUpdateModal}
+        className="text-light"
+        onHide={handleCloseUpdateModal}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Update Profile</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleUpdateSubmit}>
+            <Form.Group controlId="formUpUsername">
+              <Form.Label>Username</Form.Label>
+              <Form.Control
+                type="text"
+                value={updateUsername}
+                onChange={(e) => setUpdateUsername(e.target.value)}
+                required
+                minLength="3"
+                className="text-light"
+              />
+            </Form.Group>
+            <Form.Group controlId="formUpPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                value={Password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                minLength="8"
+                className="text-light"
+              />
+            </Form.Group>
+            <Form.Group controlId="formUpEmail">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                value={Email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="text-light"
+              />
+            </Form.Group>
+            <Form.Group controlId="formUpBirthday">
+              <Form.Label>Birthday</Form.Label>
+              <Form.Control
+                type="date"
+                value={Birthday}
+                onChange={(e) => setBirthday(e.target.value)}
+                required
+                className="text-light"
+              />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Save changes
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
+      <Modal show={showModal} className="text-light" onHide={handleClose}>
         <Modal.Header>
           <Modal.Title>Delete account</Modal.Title>
         </Modal.Header>
@@ -117,11 +224,9 @@ export const ProfileView = ({ token, user, movies, setUser }) => {
           <div>Birthday: {viewedUser && formattedDate}</div>
           {isOwnProfile && (
             <>
-              <Form method="get" action={`./update`}>
-                <Button variant="primary" type="submit">
-                  Edit profile
-                </Button>
-              </Form>
+              <Button variant="primary" onClick={handleShowUpdateModal}>
+                Edit profile
+              </Button>
               <br />
               <br />
               <Button className="mb-3" variant="danger" onClick={handleShow}>
@@ -135,7 +240,7 @@ export const ProfileView = ({ token, user, movies, setUser }) => {
 
         {viewedUser &&
           favoriteMovieList.map((movie) => (
-            <Col className="mb-5" md={3} key={favoriteMovieList.id}>
+            <Col className="mb-5" md={3} key={movie._id}>
               <MovieCard
                 movie={movie}
                 user={viewedUser}

@@ -27,9 +27,16 @@ export const MainView = () => {
 
   const [users, setUsers] = useState([]);
   const [FavoriteMovies, setFavoriteMovies] = useState(null);
-
   console.log("users:", users);
   console.log("user:", user);
+
+  const onLoggedIn = (user, token) => {
+    setUser(user); // Set the user state with the logged-in user
+    setToken(token);
+    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("token", token);
+    console.log("user is:", user);
+  };
 
   const onLogout = () => {
     localStorage.clear();
@@ -37,32 +44,6 @@ export const MainView = () => {
 
   console.log("MainView user:", user);
   console.log("MainView setUser:", setUser);
-
-  useEffect(() => {
-    // Check if the token is available in local storage and fetch user data if it exists
-    if (token) {
-      fetch("https://chaseflix-481df0d77a4b.herokuapp.com/users", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-        .then((response) => {
-          if (response.ok) return response.json();
-          throw new Error("Invalid token");
-        })
-        .then((data) => {
-          const usersFromApi = data.map((user) => {
-            return {
-              _id: user._id,
-              username: user.Username,
-              FavoriteMovies: user.FavoriteMovies,
-            };
-          });
-
-          setUsers(usersFromApi);
-          setUser(usersFromApi[0]); // Assuming the first user is the logged-in user
-        })
-        .catch((error) => console.error("Error fetching users:", error));
-    }
-  }, [token]);
 
   useEffect(() => {
     if (token) {
@@ -120,7 +101,9 @@ export const MainView = () => {
 
         setUsers(usersFromApi);
         // Assuming the first user is the logged-in user
-        setUser(usersFromApi.length > 0 ? usersFromApi[0] : null);
+        setUser(
+          usersFromApi.find((user) => user.username === storedUser.Username)
+        );
         setDataLoaded(true);
       })
       .catch((error) => {
@@ -161,24 +144,7 @@ export const MainView = () => {
               </>
             }
           />
-          <Route
-            path="/update"
-            element={
-              <>
-                {!user ? (
-                  <Navigate to="/login" />
-                ) : (
-                  <Col md={5}>
-                    <ProfileUpdate
-                      user={user}
-                      token={token}
-                      setUser={setUser}
-                    />
-                  </Col>
-                )}
-              </>
-            }
-          />
+
           <Route
             path="/login"
             element={
@@ -187,7 +153,7 @@ export const MainView = () => {
                   <Navigate to="/" />
                 ) : (
                   <Col md={5}>
-                    <LoginView onLoggedIn={(user) => setUser(user)} />
+                    <LoginView onLoggedIn={onLoggedIn} />
                   </Col>
                 )}
               </>
