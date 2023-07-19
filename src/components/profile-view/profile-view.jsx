@@ -9,42 +9,42 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 
 export const ProfileView = ({ token, user, movies, setUser }) => {
+  const { Username } = useParams();
+  const [viewedUser, setViewedUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  //Favorite movie calculator
   const favoriteMovieList = movies.filter((m) => {
-    return user.FavoriteMovies.includes(m._id);
+    return viewedUser && viewedUser.FavoriteMovies.includes(m._id);
   });
-  const birthdayDate = new Date(user.Birthday);
-  const options = { month: "long", day: "numeric", timeZone: "UTC" };
-  const formattedDate = birthdayDate.toLocaleDateString(undefined, options);
 
+  //Modal states
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const { username } = useParams();
-
   useEffect(() => {
-    fetch(
-      `https://chaseflix-481df0d77a4b.herokuapp.com/users/${user.Username}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
+    if (!Username) return;
+
+    fetch(`https://chaseflix-481df0d77a4b.herokuapp.com/users/${Username}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => {
-        if (!response.ok) {
-          throw new Error("User not found");
-        }
-        return response.json();
+        if (response.ok) return response.json();
+        throw new Error("User not found");
       })
-      .then((data) => {
-        setUser(data);
+      .then((userData) => {
+        setViewedUser(userData);
+        setLoading(false);
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Error fetching user:", error);
+        setLoading(false);
       });
-  }, [username, token, setUser]);
+  }, [Username, token]);
 
   const handleDeleteSubmit = (event) => {
     event.preventDefault();
@@ -75,6 +75,22 @@ export const ProfileView = ({ token, user, movies, setUser }) => {
       });
   };
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!viewedUser) {
+    return <div>User not found.</div>;
+  }
+
+  //Birthday calculator
+  const birthdayDate = viewedUser ? new Date(viewedUser.Birthday) : null;
+  const options = { month: "long", day: "numeric", timeZone: "UTC" };
+  const formattedDate = birthdayDate.toLocaleDateString(undefined, options);
+
+  //Checking if the viewing user is the same as the logged in user
+  const isOwnProfile = user && user._id === viewedUser._id;
+
   return (
     <>
       <Modal show={show} onHide={handleClose}>
@@ -97,32 +113,37 @@ export const ProfileView = ({ token, user, movies, setUser }) => {
       </Modal>
       <Row className="h-100 text-light">
         <Col>
-          <div>{user.Username}</div>
-          <div>Birthday: {formattedDate}</div>
-          <Form method="get" action={`./update`}>
-            <Button variant="primary" type="submit">
-              Edit profile
-            </Button>
-          </Form>
-          <br />
-          <br />
-          <Button className="mb-3" variant="danger" onClick={handleShow}>
-            Delete profile
-          </Button>
+          <div>{viewedUser && viewedUser.Username}</div>
+          <div>Birthday: {viewedUser && formattedDate}</div>
+          {isOwnProfile && (
+            <>
+              <Form method="get" action={`./update`}>
+                <Button variant="primary" type="submit">
+                  Edit profile
+                </Button>
+              </Form>
+              <br />
+              <br />
+              <Button className="mb-3" variant="danger" onClick={handleShow}>
+                Delete profile
+              </Button>
+            </>
+          )}
         </Col>
         <hr />
         <h2>Favorite Movies</h2>
 
-        {favoriteMovieList.map((movie) => (
-          <Col className="mb-5" md={3} key={favoriteMovieList.id}>
-            <MovieCard
-              movie={movie}
-              user={user}
-              token={token}
-              setUser={setUser}
-            ></MovieCard>
-          </Col>
-        ))}
+        {viewedUser &&
+          favoriteMovieList.map((movie) => (
+            <Col className="mb-5" md={3} key={favoriteMovieList.id}>
+              <MovieCard
+                movie={movie}
+                user={viewedUser}
+                token={token}
+                setUser={setUser}
+              ></MovieCard>
+            </Col>
+          ))}
       </Row>
     </>
   );

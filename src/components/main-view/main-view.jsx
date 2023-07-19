@@ -16,6 +16,7 @@ export const MainView = () => {
   //Stored information for user within localStorage
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
+  const [dataLoaded, setDataLoaded] = useState(false);
 
   //Used to set movies from API into array
   const [movies, setMovies] = useState([]);
@@ -37,47 +38,78 @@ export const MainView = () => {
   console.log("MainView user:", user);
   console.log("MainView setUser:", setUser);
 
-  //const [similarMovies, setSimilarMovies] = useState([]);
   useEffect(() => {
-    if (!token) return;
+    // Check if the token is available in local storage and fetch user data if it exists
+    if (token) {
+      fetch("https://chaseflix-481df0d77a4b.herokuapp.com/users", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+        .then((response) => {
+          if (response.ok) return response.json();
+          throw new Error("Invalid token");
+        })
+        .then((data) => {
+          const usersFromApi = data.map((user) => {
+            return {
+              _id: user._id,
+              username: user.Username,
+              FavoriteMovies: user.FavoriteMovies,
+            };
+          });
 
-    fetch("https://chaseflix-481df0d77a4b.herokuapp.com/movies", {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("API response:", data);
-        const moviesFromApi = data.map((movie) => {
-          return {
-            _id: movie._id,
-            Title: movie.Title,
-            Description: movie.Description,
-            Genre: {
-              Name: movie.Genre.Name,
-              Description: movie.Genre.Description,
-            },
-            Director: {
-              Name: movie.Director.Name,
-              Bio: movie.Director.Bio,
-              Born: movie.Director.Born,
-              Death: movie.Director.Death,
-            },
-            Featured: movie.Featured.toString(),
-            ImagePath: movie.ImagePath,
-            ImageBackdrop: movie.ImageBackdrop,
-            Similar: movie.Similar,
-          };
-        });
+          setUsers(usersFromApi);
+          setUser(usersFromApi[0]); // Assuming the first user is the logged-in user
+        })
+        .catch((error) => console.error("Error fetching users:", error));
+    }
+  }, [token]);
 
-        setMovies(moviesFromApi);
-      });
+  useEffect(() => {
+    if (token) {
+      fetch("https://chaseflix-481df0d77a4b.herokuapp.com/movies", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          const moviesFromApi = data.map((movie) => {
+            return {
+              _id: movie._id,
+              Title: movie.Title,
+              Description: movie.Description,
+              Genre: {
+                Name: movie.Genre.Name,
+                Description: movie.Genre.Description,
+              },
+              Director: {
+                Name: movie.Director.Name,
+                Bio: movie.Director.Bio,
+                Born: movie.Director.Born,
+                Death: movie.Director.Death,
+              },
+              Featured: movie.Featured.toString(),
+              ImagePath: movie.ImagePath,
+              ImageBackdrop: movie.ImageBackdrop,
+              Similar: movie.Similar,
+            };
+          });
 
+          setMovies(moviesFromApi);
+        })
+        .catch((error) => console.error("Error fetching movies:", error));
+
+      fetchUsers();
+    }
+  }, [token]);
+
+  const fetchUsers = () => {
     fetch("https://chaseflix-481df0d77a4b.herokuapp.com/users", {
       headers: { Authorization: `Bearer ${token}` },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) throw new Error("Invalid token");
+        return response.json();
+      })
       .then((data) => {
-        console.log("API response:", data);
         const usersFromApi = data.map((user) => {
           return {
             _id: user._id,
@@ -87,8 +119,22 @@ export const MainView = () => {
         });
 
         setUsers(usersFromApi);
+        // Assuming the first user is the logged-in user
+        setUser(usersFromApi.length > 0 ? usersFromApi[0] : null);
+        setDataLoaded(true);
+      })
+      .catch((error) => {
+        console.error("Error fetching users:", error);
+        setDataLoaded(true);
       });
-  }, [token]);
+  };
+
+  // Rest of the component...
+
+  if (token && !dataLoaded) {
+    // If the token is available but data is not fetched yet, show loading
+    return <div>Loading...</div>;
+  }
 
   return (
     <BrowserRouter>

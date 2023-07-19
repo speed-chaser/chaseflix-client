@@ -1,10 +1,12 @@
 import React from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./movie-view.scss";
 import Button from "react-bootstrap/Button";
 
 export const MovieView = ({ movies }) => {
+  const navigate = useNavigate();
   const { id } = useParams();
   console.log("id:", id);
   console.log("movies: ", movies);
@@ -14,6 +16,10 @@ export const MovieView = ({ movies }) => {
   if (!movie) {
     return <div>Loading...</div>;
   }
+
+  const handleGoBack = () => {
+    navigate(-1);
+  };
 
   return (
     <div className="text-light">
@@ -40,6 +46,9 @@ export const MovieView = ({ movies }) => {
       </div>
       <div>
         <hr />
+        <Button onClick={handleGoBack} variant="secondary">
+          Return
+        </Button>
       </div>
     </div>
   );

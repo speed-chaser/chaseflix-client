@@ -7,7 +7,7 @@ export const NavigationBar = ({ user, onLoggedOut, handleShow }) => {
   return (
     <Navbar bg="dark" className="text-light" data-bs-theme="dark" expand="lg">
       <Container>
-        <Navbar.Brand as={Link} to="/">
+        <Navbar.Brand as={Link} to={`./movies`}>
           ChaseFlix
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -24,7 +24,11 @@ export const NavigationBar = ({ user, onLoggedOut, handleShow }) => {
           {user ? (
             <>
               <NavDropdown title="Account" id="collapsible-nav-dropdown">
-                <NavDropdown.Item as={Link} to="/" className="mx-2">
+                <NavDropdown.Item
+                  as={Link}
+                  to={`./Users/${user.username}`}
+                  className="mx-2"
+                >
                   Profile
                 </NavDropdown.Item>
                 <NavDropdown.Item onClick={onLoggedOut} className="mx-2">
