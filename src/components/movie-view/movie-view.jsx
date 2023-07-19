@@ -1,4 +1,6 @@
 import React from "react";
+import "./movie-view.scss";
+import Button from "react-bootstrap/Button";
 
 export const MovieView = ({ movie, onBackClick, movies }) => {
   const similarMovies = movies.filter(
@@ -8,34 +10,34 @@ export const MovieView = ({ movie, onBackClick, movies }) => {
   return (
     <div>
       <div>
-        <img src={movie.ImagePath} alt="Poster of Movie" />
+        <img src={movie.ImageBackdrop} alt="Poster of Movie" />
       </div>
-      <div>
+      <div className="title">
         <h1>{movie.Title}</h1>
       </div>
-      <div>
+      <div className="subtext">
         <h3>{movie.Description}</h3>
       </div>
-      <div>
+      <div className="subtext">
         <span>Genre: </span>
         <span>{movie.Genre}</span>
       </div>
-      <div>
+      <div className="subtext">
         <span>Director: </span>
         <span>{movie.Director}</span>
       </div>
-      <div>
+      <div className="subtext">
         <span>Featured: </span>
         <span>{movie.Featured}</span>
       </div>
-      <div>
+      <div className="subtext">
         <hr />
         <h2>Similar Movies</h2>
         {similarMovies.map((similarMovie) => (
           <div key={similarMovie.Title}>{similarMovie.Title}</div>
         ))}
       </div>
-      <button onClick={onBackClick}>Back</button>
+      <Button onClick={onBackClick}>Back</Button>
     </div>
   );
 };

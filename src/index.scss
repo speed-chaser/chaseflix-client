@@ -1,5 +1,4 @@
-$color: steelblue;
+$body-bg: #020d0f;
+$primary: #1a6548;
 
-.chaseflix {
-  color: $color;
-}
+@import "~bootstrap/scss/bootstrap.scss";
