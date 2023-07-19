@@ -1,6 +1,10 @@
 $text-light: white;
 $text-light-fade: rgba(255, 255, 255, 0.4);
 
+.light-text {
+  color: $text-light;
+}
+
 .form-control {
   color: $text-light;
 }

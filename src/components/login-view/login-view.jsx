@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { Link } from "react-router-dom";
 
 import "./login-view.scss";
 
@@ -16,6 +17,7 @@ export const LoginView = ({ onLoggedIn }) => {
       Username: Username,
       Password: Password,
     };
+    console.log("onLoggedIn", onLoggedIn);
 
     fetch("https://chaseflix-481df0d77a4b.herokuapp.com/login", {
       method: "POST",
@@ -31,6 +33,7 @@ export const LoginView = ({ onLoggedIn }) => {
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("token", data.token);
           onLoggedIn(data.user, data.token);
+          window.location.replace("/movies");
         } else {
           alert("No such user");
         }
@@ -41,30 +44,33 @@ export const LoginView = ({ onLoggedIn }) => {
   };
 
   return (
-    <Form className="text-light" onSubmit={handleSubmit}>
+    <Form className="light-text" onSubmit={handleSubmit}>
       <Form.Group controlId="formUsername">
         <Form.Label>Username</Form.Label>
         <Form.Control
-          className="text-light"
           type="text"
           value={Username}
           onChange={(e) => setUsername(e.target.value)}
           required
+          className="text-light"
         />
       </Form.Group>
       <Form.Group controlId="formPassword">
         <Form.Label>Password </Form.Label>
         <Form.Control
-          className="text-light"
           type="password"
           value={Password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          className="text-light"
         />
       </Form.Group>
       <Button variant="primary" type="submit">
         Submit
       </Button>
+      <div>
+        Don't have an account? <Link to="/signup">Sign up</Link>
+      </div>
     </Form>
   );
 };

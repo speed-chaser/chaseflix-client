@@ -2,6 +2,10 @@ $bgcolor: rgba(0, 0, 0, 0.2);
 $text-light: white;
 $text-light-fade: rgba(255, 255, 255, 0.2);
 
+button {
+  display: flex;
+  float: left;
+}
 .card-body {
   background-color: $bgcolor;
 }
@@ -12,6 +16,19 @@ $text-light-fade: rgba(255, 255, 255, 0.2);
 
 .subtext {
   color: $text-light-fade;
+}
+
+.favorite-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: yellow;
+}
+
+.unfavorite-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }
 
 @import "~bootstrap/scss/bootstrap.scss";
