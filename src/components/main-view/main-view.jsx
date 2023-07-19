@@ -241,16 +241,21 @@ export const MainView = () => {
               <>
                 {!user ? (
                   <Navigate to="/login" replace />
+                ) : movies.length === 0 ? (
+                  <Col>The list is empty!</Col>
                 ) : (
                   <>
-                    <Col md={12}>
-                      <ProfileView
-                        user={user}
-                        token={token}
-                        movies={movies}
-                        setUser={setUser}
-                      />
-                    </Col>
+                    {movies.map((movie) => (
+                      <Col className="mb-4" key={movie._id} md={3}>
+                        <MovieCard
+                          movie={movie}
+                          key={movie._id}
+                          user={user}
+                          token={token}
+                          setUser={setUser}
+                        />
+                      </Col>
+                    ))}
                   </>
                 )}
               </>
