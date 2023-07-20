@@ -100,25 +100,21 @@ export const MovieView = ({ movies, user, token, setUser }) => {
         <h1>{movie.Title}</h1>
       </div>
       <div>
-        <h3>{movie.Description}</h3>
+        <h4>{movie.Description}</h4>
       </div>
       <div>
         <span>Genre: </span>
         <span>{movie.Genre.Name}</span>
       </div>
-      <div>
+      <div className="my-2">
         <span>Director: </span>
         <span>{movie.Director.Name}</span>
-      </div>
-      <div>
-        <span>Featured: </span>
-        <span>{movie.Featured}</span>
       </div>
       <div>
         {isFavorite ? (
           <Button
             variant="warning"
-            className="my-md-auto mx-md-2"
+            className="my-md-auto"
             onClick={removeFavoriteMovie}
           >
             Remove from Favorites
@@ -126,7 +122,7 @@ export const MovieView = ({ movies, user, token, setUser }) => {
         ) : (
           <Button
             variant="secondary"
-            className="my-md-auto mx-md-2"
+            className="my-md-auto"
             onClick={addFavoriteMovie}
           >
             Add to Favorites
