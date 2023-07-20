@@ -10,14 +10,16 @@ export const UserList = ({ user }) => {
     <Col className="justify-content-md-center">
       <ListGroup horizontal className="my-2">
         <ListGroup.Item className="text-light user-item d-flex align-items-center">
-          {user.Username}{" "}
-          {user.Verified && (
-            <img
-              src={verifiedLogo}
-              className="verified-logo"
-              alt="verified logo"
-            />
-          )}
+          <h3>
+            {user.Username}
+            {user.Verified && (
+              <img
+                src={verifiedLogo}
+                className="verified-logo"
+                alt="verified logo"
+              />
+            )}
+          </h3>
         </ListGroup.Item>
         <ListGroup.Item className="d-flex align-items-center">
           <Form method="get" action={`/users/${user.Username}`}>

@@ -39633,7 +39633,7 @@ textarea.form-control-lg {
   width: 22px;
   height: 22px;
   margin-top: -10px;
-  margin-left: 10px;
+  margin-left: 15px;
 }
 
 .button-style {
@@ -66033,7 +66033,7 @@ textarea.form-control-lg {
 }
 
 .user-item {
-  min-width: 200px;
+  min-width: 300px;
 }
 
 .d-flex.align-items-center {
@@ -66041,14 +66041,11 @@ textarea.form-control-lg {
   display: flex;
 }
 
-.no-border {
-  border: 0;
-}
-
 .verified-logo {
-  width: 15px;
-  height: 15px;
-  margin-left: 5px;
+  width: 25px;
+  height: 25px;
+  margin-top: -5px;
+  margin-left: 10px;
 }
 
 

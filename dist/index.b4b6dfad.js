@@ -27311,6 +27311,8 @@ const MainView = ()=>{
                                     to: "/"
                                 }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                     className: "text-light",
+                                    xs: 12,
+                                    sm: 6,
                                     md: 5,
                                     children: [
                                         "Sign up:",
@@ -27376,6 +27378,8 @@ const MainView = ()=>{
                                 }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
                                     children: movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                             className: "mb-4",
+                                            xs: 12,
+                                            sm: 6,
                                             md: 3,
                                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                                                 movie: movie,
@@ -27403,6 +27407,8 @@ const MainView = ()=>{
                                 }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
                                     children: movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
                                             className: "mb-4",
+                                            xs: 12,
+                                            sm: 6,
                                             md: 3,
                                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                                                 movie: movie,
@@ -27416,7 +27422,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 210,
+                            lineNumber: 216,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27437,7 +27443,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 238,
+                            lineNumber: 250,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27459,7 +27465,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 256,
+                            lineNumber: 268,
                             columnNumber: 11
                         }, undefined)
                     ]
@@ -46915,20 +46921,25 @@ const UserList = ({ user })=>{
             children: [
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _listGroupDefault.default).Item, {
                     className: "text-light user-item d-flex align-items-center",
-                    children: [
-                        user.Username,
-                        " ",
-                        user.Verified && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-                            src: (0, _patchCheckFillSvgDefault.default),
-                            className: "verified-logo",
-                            alt: "verified logo"
-                        }, void 0, false, {
-                            fileName: "src/components/user-list/user-list.jsx",
-                            lineNumber: 15,
-                            columnNumber: 13
-                        }, undefined)
-                    ]
-                }, void 0, true, {
+                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                        children: [
+                            user.Username,
+                            user.Verified && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                                src: (0, _patchCheckFillSvgDefault.default),
+                                className: "verified-logo",
+                                alt: "verified logo"
+                            }, void 0, false, {
+                                fileName: "src/components/user-list/user-list.jsx",
+                                lineNumber: 16,
+                                columnNumber: 15
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/user-list/user-list.jsx",
+                        lineNumber: 13,
+                        columnNumber: 11
+                    }, undefined)
+                }, void 0, false, {
                     fileName: "src/components/user-list/user-list.jsx",
                     lineNumber: 12,
                     columnNumber: 9
@@ -46944,17 +46955,17 @@ const UserList = ({ user })=>{
                             children: "View Page"
                         }, void 0, false, {
                             fileName: "src/components/user-list/user-list.jsx",
-                            lineNumber: 24,
+                            lineNumber: 26,
                             columnNumber: 13
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/user-list/user-list.jsx",
-                        lineNumber: 23,
+                        lineNumber: 25,
                         columnNumber: 11
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/user-list/user-list.jsx",
-                    lineNumber: 22,
+                    lineNumber: 24,
                     columnNumber: 9
                 }, undefined)
             ]
