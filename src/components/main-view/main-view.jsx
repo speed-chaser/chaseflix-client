@@ -137,7 +137,7 @@ export const MainView = () => {
                 {user ? (
                   <Navigate to="/" />
                 ) : (
-                  <Col className="text-light" md={5}>
+                  <Col className="text-light" xs={12} sm={6} md={5}>
                     Sign up:
                     <SignupView user={user} />
                   </Col>
@@ -191,7 +191,13 @@ export const MainView = () => {
                 ) : (
                   <>
                     {movies.map((movie) => (
-                      <Col className="mb-4" key={movie._id} md={3}>
+                      <Col
+                        className="mb-4"
+                        key={movie._id}
+                        xs={12}
+                        sm={6}
+                        md={3}
+                      >
                         <MovieCard
                           movie={movie}
                           key={movie._id}
@@ -218,7 +224,13 @@ export const MainView = () => {
                 ) : (
                   <>
                     {movies.map((movie) => (
-                      <Col className="mb-4" key={movie._id} md={3}>
+                      <Col
+                        className="mb-4"
+                        key={movie._id}
+                        xs={12}
+                        sm={6}
+                        md={3}
+                      >
                         <MovieCard
                           movie={movie}
                           key={movie._id}
