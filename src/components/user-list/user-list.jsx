@@ -1,18 +1,32 @@
 import ListGroup from "react-bootstrap/ListGroup";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import "./user-list.scss";
+import verifiedLogo from "../../img/patch-check-fill.svg";
+import Col from "react-bootstrap/Col";
 
 export const UserList = ({ user }) => {
   return (
-    <ListGroup horizontal className="my-2">
-      <ListGroup.Item className="text-light">{user.username}</ListGroup.Item>
-      <ListGroup.Item>
-        <Form method="get" action={`/users/${user.username}`}>
-          <Button variant="primary" type="submit">
-            View Page
-          </Button>
-        </Form>
-      </ListGroup.Item>
-    </ListGroup>
+    <Col className="justify-content-md-center">
+      <ListGroup horizontal className="my-2">
+        <ListGroup.Item className="text-light user-item d-flex align-items-center">
+          {user.Username}{" "}
+          {user.Verified && (
+            <img
+              src={verifiedLogo}
+              className="verified-logo"
+              alt="verified logo"
+            />
+          )}
+        </ListGroup.Item>
+        <ListGroup.Item className="d-flex align-items-center">
+          <Form method="get" action={`/users/${user.Username}`}>
+            <Button variant="primary" type="submit">
+              View Page
+            </Button>
+          </Form>
+        </ListGroup.Item>
+      </ListGroup>
+    </Col>
   );
 };

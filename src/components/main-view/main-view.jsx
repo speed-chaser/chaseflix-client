@@ -94,15 +94,16 @@ export const MainView = () => {
         const usersFromApi = data.map((user) => {
           return {
             _id: user._id,
-            username: user.Username,
+            Username: user.Username,
             FavoriteMovies: user.FavoriteMovies,
+            Verified: user.Verified,
           };
         });
 
         setUsers(usersFromApi);
         // Assuming the first user is the logged-in user
         setUser(
-          usersFromApi.find((user) => user.username === storedUser.Username)
+          usersFromApi.find((user) => user.Username === storedUser.Username)
         );
         setDataLoaded(true);
       })
@@ -144,7 +145,6 @@ export const MainView = () => {
               </>
             }
           />
-
           <Route
             path="/login"
             element={
@@ -169,7 +169,12 @@ export const MainView = () => {
                   <Col>The list is empty!</Col>
                 ) : (
                   <Col md={8}>
-                    <MovieView movies={movies} />
+                    <MovieView
+                      movies={movies}
+                      user={user}
+                      token={token}
+                      setUser={setUser}
+                    />
                   </Col>
                 )}
               </>
@@ -193,6 +198,7 @@ export const MainView = () => {
                           user={user}
                           token={token}
                           setUser={setUser}
+                          showFavoriteButtons={true}
                         />
                       </Col>
                     ))}
@@ -219,6 +225,7 @@ export const MainView = () => {
                           user={user}
                           token={token}
                           setUser={setUser}
+                          showFavoriteButtons={true}
                         />
                       </Col>
                     ))}
@@ -237,7 +244,7 @@ export const MainView = () => {
                 ) : (
                   <>
                     {users.map((user) => (
-                      <Col className="mb-4" key={user._id} md={4}>
+                      <Col className="mb-4" key={user._id} md={12}>
                         <UserList user={user} />
                       </Col>
                     ))}
@@ -257,6 +264,7 @@ export const MainView = () => {
                       user={user}
                       token={token}
                       movies={movies}
+                      showFavoriteButtons={true}
                     />
                   </Col>
                 ) : (

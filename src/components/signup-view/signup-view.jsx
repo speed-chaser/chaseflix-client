@@ -62,6 +62,7 @@ export const SignupView = ({ user }) => {
           onChange={(e) => setUsername(e.target.value)}
           required
           minLength="3"
+          maxLength="12"
         />
       </Form.Group>
       <Form.Group controlId="formSignPassword">
@@ -73,6 +74,7 @@ export const SignupView = ({ user }) => {
           onChange={(e) => setPassword(e.target.value)}
           required
           minLength="8"
+          maxLength="20"
         />
       </Form.Group>
       <Form.Group controlId="formControlPassword">
@@ -84,6 +86,7 @@ export const SignupView = ({ user }) => {
           onChange={(e) => setControlPassword(e.target.value)}
           required
           minLength="8"
+          maxLength="20"
         />
       </Form.Group>
       <Form.Group controlId="formSignEmail">
@@ -106,10 +109,12 @@ export const SignupView = ({ user }) => {
           required
         />
       </Form.Group>
-      <Button variant="primary" type="submit">
+      <Button className="mx-2 my-3" variant="primary" type="submit">
         Submit
       </Button>
-      Already registered? <Link to="/login">Login</Link>
+      <div className="mx-4 my-4">
+        Already registered? <Link to="/login">Login</Link>
+      </div>
     </Form>
   );
 };

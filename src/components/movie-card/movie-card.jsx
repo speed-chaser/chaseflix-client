@@ -7,7 +7,13 @@ import "./movie-card.scss";
 import starFillImage from "../../img/star-fill.svg";
 import starImage from "../../img/star.svg";
 
-export const MovieCard = ({ movie, user, token, setUser }) => {
+export const MovieCard = ({
+  movie,
+  user,
+  token,
+  setUser,
+  showFavoriteButtons,
+}) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
@@ -82,23 +88,25 @@ export const MovieCard = ({ movie, user, token, setUser }) => {
 
   return (
     <Card className="h-100 text-light">
-      {isFavorite ? (
-        <Button
-          className="unfavorite-button"
-          variant="warning"
-          onClick={removeFavoriteMovie}
-        >
-          <img src={starFillImage} alt="Unfavorite Button" />
-        </Button>
-      ) : (
-        <Button
-          className="favorite-button"
-          variant="secondary"
-          onClick={addFavoriteMovie}
-        >
-          <img src={starImage} alt="Favorite Button" />
-        </Button>
-      )}
+      {/* Show favorite buttons only if showFavoriteButtons is true */}
+      {showFavoriteButtons &&
+        (isFavorite ? (
+          <Button
+            className="unfavorite-button"
+            variant="warning"
+            onClick={removeFavoriteMovie}
+          >
+            <img src={starFillImage} alt="Unfavorite Button" />
+          </Button>
+        ) : (
+          <Button
+            className="favorite-button"
+            variant="secondary"
+            onClick={addFavoriteMovie}
+          >
+            <img src={starImage} alt="Favorite Button" />
+          </Button>
+        ))}
       <Card.Img variant="top" loading="lazy" src={movie.ImagePath} />
       <Card.Body className="card-body">
         <Card.Title className="title">{movie.Title}</Card.Title>

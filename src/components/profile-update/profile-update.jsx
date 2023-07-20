@@ -34,14 +34,15 @@ export const ProfileUpdate = ({ user, token, setUser }) => {
     )
       .then((response) => {
         if (response.ok) {
-          alert("Data updated!");
+          alert("Data updated!", user, data);
           return response.json();
         } else {
-          alert("Update failed :(");
+          alert("Update failed :(", user);
         }
       })
       .then((data) => {
         localStorage.setItem("user", JSON.stringify(data));
+        localStorage.setItem("token", data.token);
         setUser(data);
         window.location.replace("/");
       });

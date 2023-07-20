@@ -7,8 +7,16 @@ import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+import verifiedLogo from "../../img/patch-check-fill.svg";
+import "./profile-view.scss";
 
-export const ProfileView = ({ token, user, movies, setUser }) => {
+export const ProfileView = ({
+  token,
+  user,
+  movies,
+  setUser,
+  showFavoriteButtons,
+}) => {
   const { Username: profileUsername } = useParams();
   const [viewedUser, setViewedUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -82,15 +90,20 @@ export const ProfileView = ({ token, user, movies, setUser }) => {
     )
       .then((response) => {
         if (response.ok) {
-          alert("Data updated!");
+          alert(
+            "Data updated! You will be sent to login with your new information."
+          );
           return response.json();
         } else {
-          alert("Update failed :(");
+          alert("Update failed :(", user, data);
         }
       })
       .then((data) => {
         localStorage.setItem("user", JSON.stringify(data));
+        localStorage.setItem("token", data.token);
         setUser(data);
+        localStorage.clear();
+        setUser(null);
         window.location.reload();
       });
   };
@@ -112,6 +125,7 @@ export const ProfileView = ({ token, user, movies, setUser }) => {
         if (response.ok) {
           alert("User Deleted");
           localStorage.clear();
+          setUser(null);
           window.location.reload();
         } else {
           alert("Update failed :(");
@@ -220,16 +234,35 @@ export const ProfileView = ({ token, user, movies, setUser }) => {
       </Modal>
       <Row className="h-100 text-light">
         <Col>
-          <div>{viewedUser && viewedUser.Username}</div>
-          <div>Birthday: {viewedUser && formattedDate}</div>
+          <div className="d-flex align-items-center">
+            <h2>{viewedUser && viewedUser.Username}</h2>
+            {user.Verified && (
+              <div className="ml-2 mt-1">
+                <img
+                  src={verifiedLogo}
+                  className="verified-img"
+                  alt="Verified Logo"
+                />
+              </div>
+            )}
+          </div>
+          <div className="my-2">Birthday: {viewedUser && formattedDate}</div>
           {isOwnProfile && (
             <>
-              <Button variant="primary" onClick={handleShowUpdateModal}>
+              <Button
+                variant="primary"
+                className="button-style"
+                onClick={handleShowUpdateModal}
+              >
                 Edit profile
               </Button>
               <br />
               <br />
-              <Button className="mb-3" variant="danger" onClick={handleShow}>
+              <Button
+                className="mb-3 button-style"
+                variant="danger"
+                onClick={handleShow}
+              >
                 Delete profile
               </Button>
             </>
@@ -246,6 +279,7 @@ export const ProfileView = ({ token, user, movies, setUser }) => {
                 user={viewedUser}
                 token={token}
                 setUser={setUser}
+                showFavoriteButtons={isOwnProfile}
               ></MovieCard>
             </Col>
           ))}
