@@ -9,6 +9,27 @@ $text-light-fade: rgba(255, 255, 255, 0.4);
   color: $text-light;
 }
 
+.username {
+  padding-top: 5px;
+}
+
+.d-flex.align-items-center {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.verified-img {
+  margin-left: 10px;
+  margin-top: -10px;
+  width: 22px;
+  height: 22px;
+}
+
+.button-style {
+  width: 130px;
+}
+
 .form-control:not(active) {
   color: $text-light;
 }

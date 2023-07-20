@@ -26,7 +26,7 @@ export const NavigationBar = ({ user, onLoggedOut, handleShow }) => {
               <NavDropdown title="Account" id="collapsible-nav-dropdown">
                 <NavDropdown.Item
                   as={Link}
-                  to={`./Users/${user.username}`}
+                  to={`./Users/${user.Username}`}
                   className="mx-2"
                 >
                   Profile

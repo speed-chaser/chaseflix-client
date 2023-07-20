@@ -33,13 +33,16 @@ export const LoginView = ({ onLoggedIn }) => {
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("token", data.token);
           onLoggedIn(data.user, data.token);
-          window.location.replace("/movies");
+          window.location.replace("/");
         } else {
           alert("No such user");
         }
       })
-      .catch((e) => {
-        alert("Something went wrong.");
+      .catch((error) => {
+        console.error("Login error:", error);
+        alert(
+          "An error occurred during login. Please check your credentials and try again."
+        );
       });
   };
 
