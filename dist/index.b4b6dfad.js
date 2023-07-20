@@ -46505,7 +46505,7 @@ const ProfileView = ({ token, user, movies, setUser, showFavoriteButtons })=>{
                                         lineNumber: 238,
                                         columnNumber: 13
                                     }, undefined),
-                                    user.Verified && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    viewedUser && viewedUser.Verified && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                                         className: "ml-2 mt-1",
                                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
                                             src: (0, _patchCheckFillSvgDefault.default),

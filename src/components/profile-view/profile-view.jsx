@@ -236,7 +236,7 @@ export const ProfileView = ({
         <Col>
           <div className="d-flex align-items-center">
             <h2>{viewedUser && viewedUser.Username}</h2>
-            {user.Verified && (
+            {viewedUser && viewedUser.Verified && (
               <div className="ml-2 mt-1">
                 <img
                   src={verifiedLogo}
