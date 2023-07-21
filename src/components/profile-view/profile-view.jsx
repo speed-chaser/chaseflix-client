@@ -41,7 +41,6 @@ export const ProfileView = ({
 
   useEffect(() => {
     if (!profileUsername) return;
-    console.log("Username:", profileUsername);
     fetch(
       `https://chaseflix-481df0d77a4b.herokuapp.com/users/${profileUsername}`,
       {
@@ -67,8 +66,6 @@ export const ProfileView = ({
 
   const handleUpdateSubmit = (event) => {
     event.preventDefault();
-
-    console.log("profile-update User:", user);
 
     const data = {
       Username: updateUsername,

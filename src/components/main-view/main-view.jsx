@@ -4,7 +4,7 @@ import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { ProfileView } from "../profile-view/profile-view";
-import { ProfileUpdate } from "../profile-update/profile-update";
+import { LandingView } from "../landing-view/landing-view";
 import { UserList } from "../user-list/user-list";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -27,23 +27,17 @@ export const MainView = () => {
 
   const [users, setUsers] = useState([]);
   const [FavoriteMovies, setFavoriteMovies] = useState(null);
-  console.log("users:", users);
-  console.log("user:", user);
 
   const onLoggedIn = (user, token) => {
     setUser(user); // Set the user state with the logged-in user
     setToken(token);
     localStorage.setItem("user", JSON.stringify(user));
     localStorage.setItem("token", token);
-    console.log("user is:", user);
   };
 
   const onLogout = () => {
     localStorage.clear();
   };
-
-  console.log("MainView user:", user);
-  console.log("MainView setUser:", setUser);
 
   useEffect(() => {
     if (token) {
@@ -137,8 +131,8 @@ export const MainView = () => {
                 {user ? (
                   <Navigate to="/" />
                 ) : (
-                  <Col className="text-light" xs={12} sm={6} md={5}>
-                    Sign up:
+                  <Col className="text-light" xs={12} sm={10} md={8} lg={5}>
+                    <h2>Sign up:</h2>
                     <SignupView user={user} />
                   </Col>
                 )}
@@ -152,7 +146,7 @@ export const MainView = () => {
                 {user ? (
                   <Navigate to="/" />
                 ) : (
-                  <Col md={5}>
+                  <Col xs={12} sm={10} md={8} lg={5}>
                     <LoginView onLoggedIn={onLoggedIn} />
                   </Col>
                 )}
@@ -217,32 +211,9 @@ export const MainView = () => {
             path="/"
             element={
               <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : movies.length === 0 ? (
-                  <Col>The list is empty!</Col>
-                ) : (
-                  <>
-                    {movies.map((movie) => (
-                      <Col
-                        className="mb-4"
-                        key={movie._id}
-                        xs={12}
-                        sm={6}
-                        md={3}
-                      >
-                        <MovieCard
-                          movie={movie}
-                          key={movie._id}
-                          user={user}
-                          token={token}
-                          setUser={setUser}
-                          showFavoriteButtons={true}
-                        />
-                      </Col>
-                    ))}
-                  </>
-                )}
+                <Col>
+                  <LandingView movies={movies} />
+                </Col>
               </>
             }
           />

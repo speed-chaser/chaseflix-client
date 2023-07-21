@@ -13,8 +13,30 @@ $text-light-fade: rgba(255, 255, 255, 0.4);
   color: $text-light;
 }
 
+.form {
+  min-height: 100vh;
+}
+
 .subtext {
   color: $text-light-fade;
+}
+
+.form-header {
+  font-size: 36px;
+}
+
+.form-button {
+  font-size: 44px;
+}
+
+.form-box {
+  height: 80px;
+  font-size: 44px;
+}
+
+.d-flex.align-items-center {
+  display: flex;
+  align-items: center;
 }
 
 @import "~bootstrap/scss/bootstrap.scss";
