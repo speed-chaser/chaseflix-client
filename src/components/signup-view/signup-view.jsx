@@ -130,8 +130,9 @@ export const SignupView = ({ user }) => {
         <p className=" d-flex justify-content-center">
           Note:
           <br />
-          I will not use or distribute your email or any of your data.
-          <br />I will never ask for your password nor do I have access to it.
+          We will not use or distribute your email or any of your data.
+          <br />
+          We will never ask for your password nor do I have access to it.
         </p>
       </div>
     </div>

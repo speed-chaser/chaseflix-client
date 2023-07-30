@@ -6,6 +6,8 @@ import { SignupView } from "../signup-view/signup-view";
 import { ProfileView } from "../profile-view/profile-view";
 import { LandingView } from "../landing-view/landing-view";
 import { UserList } from "../user-list/user-list";
+import { MovieSearch } from "../movie-search/movie-search";
+import { UserSearch } from "../user-search/user-search";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
@@ -27,6 +29,8 @@ export const MainView = () => {
 
   const [users, setUsers] = useState([]);
   const [FavoriteMovies, setFavoriteMovies] = useState(null);
+  const [filteredMovies, setFilteredMovies] = useState(movies);
+  const [filteredUsers, setFilteredUsers] = useState(users);
 
   const onLoggedIn = (user, token) => {
     setUser(user); // Set the user state with the logged-in user
@@ -38,6 +42,15 @@ export const MainView = () => {
   const onLogout = () => {
     localStorage.clear();
   };
+
+  useEffect(
+    () => {
+      setFilteredMovies(movies);
+      setFilteredUsers(users);
+    },
+    [movies],
+    [users]
+  );
 
   useEffect(() => {
     if (token) {
@@ -168,6 +181,7 @@ export const MainView = () => {
                       user={user}
                       token={token}
                       setUser={setUser}
+                      setFilteredMovies={setFilteredMovies}
                     />
                   </Col>
                 )}
@@ -180,28 +194,51 @@ export const MainView = () => {
               <>
                 {!user ? (
                   <Navigate to="/login" replace />
-                ) : movies.length === 0 ? (
-                  <Col>The list is empty!</Col>
                 ) : (
                   <>
-                    {movies.map((movie) => (
-                      <Col
-                        className="mb-4"
-                        key={movie._id}
-                        xs={12}
-                        sm={6}
-                        md={3}
-                      >
-                        <MovieCard
-                          movie={movie}
-                          key={movie._id}
-                          user={user}
-                          token={token}
-                          setUser={setUser}
-                          showFavoriteButtons={true}
-                        />
-                      </Col>
-                    ))}
+                    <Col
+                      className="justify-content-md-center my-5 text-light"
+                      xs={12}
+                      sm={8}
+                      md={6}
+                      lg={4}
+                    >
+                      <MovieSearch
+                        movies={movies}
+                        setFilteredMovies={setFilteredMovies}
+                      />
+                    </Col>
+
+                    <Row>
+                      {filteredMovies.length === 0 ? (
+                        <Col className="text-light">
+                          <div className="justify-content-md-center">
+                            No results found
+                          </div>
+                        </Col>
+                      ) : (
+                        <>
+                          {filteredMovies.map((movie) => (
+                            <Col
+                              className="mb-5"
+                              xs={12}
+                              sm={6}
+                              md={3}
+                              key={movie._id}
+                            >
+                              <MovieCard
+                                movie={movie}
+                                key={movie._id}
+                                user={user}
+                                token={token}
+                                setUser={setUser}
+                                showFavoriteButtons={true}
+                              />
+                            </Col>
+                          ))}
+                        </>
+                      )}
+                    </Row>
                   </>
                 )}
               </>
@@ -212,7 +249,7 @@ export const MainView = () => {
             element={
               <>
                 <Col>
-                  <LandingView movies={movies} />
+                  <LandingView movies={movies} user={user} />
                 </Col>
               </>
             }
@@ -226,11 +263,37 @@ export const MainView = () => {
                   <Navigate to="/login" replace />
                 ) : (
                   <>
-                    {users.map((user) => (
-                      <Col className="mb-4" key={user._id} md={12}>
-                        <UserList user={user} />
-                      </Col>
-                    ))}
+                    <Col
+                      className="justify-content-md-center my-5 text-light"
+                      xs={8}
+                      sm={8}
+                      md={6}
+                      lg={4}
+                    >
+                      <UserSearch
+                        users={users}
+                        setFilteredUsers={setFilteredUsers}
+                      />
+                    </Col>
+                    <Row>
+                      {filteredUsers.length === 0 ? (
+                        <Col className="text-light">No results</Col>
+                      ) : (
+                        <>
+                          {filteredUsers.map((user) => (
+                            <Col
+                              className="mb-4"
+                              key={user._id}
+                              sm={12}
+                              md={12}
+                              lg={6}
+                            >
+                              <UserList user={user} />
+                            </Col>
+                          ))}
+                        </>
+                      )}
+                    </Row>
                   </>
                 )}
               </>

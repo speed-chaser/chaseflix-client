@@ -88,7 +88,6 @@ export const MovieCard = ({
 
   return (
     <Card className="h-100 text-light">
-      {/* Show favorite buttons only if showFavoriteButtons is true */}
       {showFavoriteButtons &&
         (isFavorite ? (
           <Button
@@ -107,15 +106,15 @@ export const MovieCard = ({
             <img src={starImage} alt="Favorite Button" />
           </Button>
         ))}
-      <Card.Img variant="top" loading="lazy" src={movie.ImagePath} />
-      <Card.Body className="card-body">
-        <Card.Title className="title">{movie.Title}</Card.Title>
-        <Col>
-          <Link to={`/movies/${encodeURIComponent(movie._id)}`}>
-            <Button variant="primary">Open</Button>
-          </Link>
-        </Col>
-      </Card.Body>
+      <Link
+        className=" card-button"
+        to={`/movies/${encodeURIComponent(movie._id)}`}
+      >
+        <Card.Img variant="top" loading="lazy" src={movie.ImagePath} />
+        <Card.Body className="card-body">
+          <Card.Title className="title">{movie.Title}</Card.Title>
+        </Card.Body>
+      </Link>
     </Card>
   );
 };

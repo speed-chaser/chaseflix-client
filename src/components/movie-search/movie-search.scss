@@ -1,0 +1,38 @@
+::placeholder {
+  color: white;
+  opacity: 1;
+}
+
+:-webkit-input-placeholder {
+  color: white;
+}
+
+::-moz-placeholder {
+  color: white;
+}
+
+:-ms-input-placeholder {
+  color: white;
+}
+
+.image-and-search-container {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar {
+  border-radius: 240px;
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+  margin-left: -33px;
+}
+
+@import "~bootstrap/scss/bootstrap.scss";

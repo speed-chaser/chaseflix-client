@@ -72,9 +72,9 @@ export const LoginView = ({ onLoggedIn }) => {
         Submit
       </Button>
       <div className="mx-4 my-4">
-        <h3>
+        <h4>
           Don't have an account? <Link to="/signup">Sign up</Link>
-        </h3>
+        </h4>
       </div>
     </Form>
   );

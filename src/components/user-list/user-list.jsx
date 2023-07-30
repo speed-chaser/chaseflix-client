@@ -7,7 +7,7 @@ import Col from "react-bootstrap/Col";
 
 export const UserList = ({ user }) => {
   return (
-    <Col className="justify-content-md-center">
+    <Col className="justify-content-md-center centered-row">
       <ListGroup horizontal className="my-2">
         <ListGroup.Item className="text-light user-item d-flex align-items-center">
           <h3>

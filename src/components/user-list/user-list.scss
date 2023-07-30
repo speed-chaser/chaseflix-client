@@ -13,3 +13,9 @@
   width: 25px;
   height: 25px;
 }
+
+.centered-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
