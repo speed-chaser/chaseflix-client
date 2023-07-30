@@ -1,5 +1,4 @@
-import { useParams } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
@@ -10,7 +9,7 @@ export const LandingView = () => {
   return (
     <Row className="text-light">
       <Col md={12}>
-        <div classaName=" ">
+        <div>
           <h1 className="d-flex header my-5">ChaseFlix</h1>
         </div>
       </Col>

@@ -56,10 +56,10 @@ export const SignupView = ({ user }) => {
     <div>
       <Form className="text-light mb-5" onSubmit={handleSubmit}>
         <Form.Group controlId="formSignUsername">
-          <Form.Label className="form-header">Username</Form.Label>
+          <Form.Label>Username</Form.Label>
           <Form.Control
             size="lg"
-            className="text-light form-box mb-3"
+            className="text-light mb-3"
             type="text"
             value={Username}
             onChange={(e) => setUsername(e.target.value)}
@@ -69,10 +69,10 @@ export const SignupView = ({ user }) => {
           />
         </Form.Group>
         <Form.Group controlId="formSignPassword">
-          <Form.Label className="form-header">Password</Form.Label>
+          <Form.Label>Password</Form.Label>
           <Form.Control
             size="lg"
-            className="text-light form-box mb-3"
+            className="text-light mb-3"
             type="password"
             value={Password}
             onChange={(e) => setPassword(e.target.value)}
@@ -82,10 +82,10 @@ export const SignupView = ({ user }) => {
           />
         </Form.Group>
         <Form.Group controlId="formControlPassword">
-          <Form.Label className="form-header">Confirm password</Form.Label>
+          <Form.Label>Confirm password</Form.Label>
           <Form.Control
             size="lg"
-            className="text-light form-box mb-3"
+            className="text-light mb-3"
             type="password"
             value={controlPassword}
             onChange={(e) => setControlPassword(e.target.value)}
@@ -95,10 +95,10 @@ export const SignupView = ({ user }) => {
           />
         </Form.Group>
         <Form.Group controlId="formSignEmail">
-          <Form.Label className="form-header">Email</Form.Label>
+          <Form.Label>Email</Form.Label>
           <Form.Control
             size="lg"
-            className="text-light form-box mb-3"
+            className="text-light mb-3"
             type="email"
             value={Email}
             onChange={(e) => setEmail(e.target.value)}
@@ -106,21 +106,17 @@ export const SignupView = ({ user }) => {
           />
         </Form.Group>
         <Form.Group controlId="formSignBirthday">
-          <Form.Label className="form-header">Birthday</Form.Label>
+          <Form.Label>Birthday</Form.Label>
           <Form.Control
             size="lg"
-            className="text-light form-box"
+            className="text-light"
             type="date"
             value={Birthday}
             onChange={(e) => setBirthday(e.target.value)}
             required
           />
         </Form.Group>
-        <Button
-          variant="primary"
-          className="me-2 my-4 form-button "
-          type="submit"
-        >
+        <Button variant="primary" className="me-2 my-4" type="submit">
           Submit
         </Button>
         <div className="mx-4 my-4">
