@@ -6,12 +6,17 @@ button {
   display: flex;
   float: left;
 }
+
+.card-button {
+  text-decoration: none;
+}
 .card-body {
   background-color: $bgcolor;
 }
 
 .title {
   color: $text-light;
+  text-decoration: none;
 }
 
 .subtext {

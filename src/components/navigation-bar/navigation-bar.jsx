@@ -7,13 +7,12 @@ export const NavigationBar = ({ user, onLoggedOut, handleShow }) => {
   return (
     <Navbar bg="dark" className="text-light" data-bs-theme="dark" expand="lg">
       <Container>
-        <Navbar.Brand as={Link} to={`./movies`}>
+        <Navbar.Brand as={Link} to={`./`}>
           ChaseFlix
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar=nav">
           <Nav className="me-auto">
-            {" "}
             <Nav.Link as={Link} to="./Movies" className="mx-2">
               Movies
             </Nav.Link>

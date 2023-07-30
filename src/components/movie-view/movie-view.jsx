@@ -5,7 +5,13 @@ import { useNavigate } from "react-router-dom";
 import "./movie-view.scss";
 import Button from "react-bootstrap/Button";
 
-export const MovieView = ({ movies, user, token, setUser }) => {
+export const MovieView = ({
+  movies,
+  user,
+  token,
+  setUser,
+  setFilteredMovies,
+}) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [movie, setMovie] = useState(null);
@@ -25,6 +31,7 @@ export const MovieView = ({ movies, user, token, setUser }) => {
 
   const handleGoBack = () => {
     navigate(-1);
+    setFilteredMovies(movies);
   };
 
   const addFavoriteMovie = () => {
