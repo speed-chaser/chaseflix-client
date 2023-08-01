@@ -1,22 +1,51 @@
-$bgcolor: rgba(0, 0, 0, 0.2);
+$bgcolor: rgba(16, 83, 57, 0.2);
 $text-light: white;
 $text-light-fade: rgba(255, 255, 255, 0.2);
+$starcolor: #e7e350;
 
-button {
-  display: flex;
-  float: left;
+.no-und {
+  text-decoration: none;
+}
+
+.text-light {
+  color: white;
+}
+
+.movie-card {
+  border-radius: 12px;
+  box-shadow: 0 0 15px black;
+  position: relative;
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10 15px rgba(16, 83, 57, 0.648);
+  transition: scale 3s, box-shadow 0.4s ease-in-out;
+}
+
+.movie-img {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
 }
 
 .card-button {
   text-decoration: none;
 }
 .card-body {
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
   background-color: $bgcolor;
+  text-decoration: none;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .title {
   color: $text-light;
-  text-decoration: none;
+
+  font-size: 24px;
 }
 
 .subtext {
@@ -24,16 +53,63 @@ button {
 }
 
 .favorite-button {
+  width: 50px;
+  height: 50px;
   position: absolute;
   top: 5px;
   right: 5px;
-  background-color: yellow;
+  border: 2px solid $starcolor;
+  border-radius: 12px;
+  background-color: transparent;
+  overflow: hidden;
+}
+
+.favorite-button:hover {
+  background-color: $starcolor;
+  box-shadow: 0 0 5px $starcolor;
+  transition: box-shadow 0.6s, background-color 0.6s ease-in-out;
+}
+
+.favorite-button img {
+  margin-top: -5px;
 }
 
 .unfavorite-button {
+  width: 50px;
+  height: 50px;
   position: absolute;
   top: 5px;
   right: 5px;
+  border: 2px solid $starcolor;
+  border-radius: 12px;
+  background-color: $starcolor;
+
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.6);
+}
+
+.unfavorite-button:hover {
+  background-color: rgba(189, 26, 26, 0.4);
+  box-shadow: 0 0 5px rgba(189, 26, 26, 1);
+  border-color: rgba(189, 26, 26, 0.4);
+  transition: box-shadow 0.6s, background-color 0.6s,
+    border-color 0.6s ease-in-out;
+}
+
+.unfavorite-button img {
+  margin-top: -5px;
+}
+
+.card-body .title {
+  font-size: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 768px) {
+  .card-body .title {
+    font-size: 14px;
+  }
 }
 
 @import "~bootstrap/scss/bootstrap.scss";
