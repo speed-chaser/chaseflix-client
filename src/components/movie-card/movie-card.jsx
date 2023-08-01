@@ -1,8 +1,6 @@
 import PropTypes from "prop-types";
-import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import Col from "react-bootstrap/Col";
 import "./movie-card.scss";
 import starFillImage from "../../img/star-fill.svg";
 import starImage from "../../img/star.svg";
@@ -87,35 +85,24 @@ export const MovieCard = ({
   };
 
   return (
-    <Card className="h-100 text-light">
+    <div className="movie-card text-light">
       {showFavoriteButtons &&
         (isFavorite ? (
-          <Button
-            className="unfavorite-button"
-            variant="warning"
-            onClick={removeFavoriteMovie}
-          >
+          <button className="unfavorite-button" onClick={removeFavoriteMovie}>
             <img src={starFillImage} alt="Unfavorite Button" />
-          </Button>
+          </button>
         ) : (
-          <Button
-            className="favorite-button"
-            variant="secondary"
-            onClick={addFavoriteMovie}
-          >
+          <button className="favorite-button" onClick={addFavoriteMovie}>
             <img src={starImage} alt="Favorite Button" />
-          </Button>
+          </button>
         ))}
-      <Link
-        className=" card-button"
-        to={`/movies/${encodeURIComponent(movie._id)}`}
-      >
-        <Card.Img variant="top" loading="lazy" src={movie.ImagePath} />
-        <Card.Body className="card-body">
-          <Card.Title className="title">{movie.Title}</Card.Title>
-        </Card.Body>
+      <Link className="no-und" to={`/movies/${encodeURIComponent(movie._id)}`}>
+        <img className="movie-img" src={movie.ImagePath} />
+        <div className="card-body">
+          <div className="title">{movie.Title}</div>
+        </div>
       </Link>
-    </Card>
+    </div>
   );
 };
 
