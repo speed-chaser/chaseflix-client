@@ -27183,6 +27183,7 @@ var _landingView = require("../landing-view/landing-view");
 var _userList = require("../user-list/user-list");
 var _movieSearch = require("../movie-search/movie-search");
 var _userSearch = require("../user-search/user-search");
+var _fileUploadForm = require("../file-upload-form/file-upload-form");
 var _row = require("react-bootstrap/Row");
 var _rowDefault = parcelHelpers.interopDefault(_row);
 var _col = require("react-bootstrap/Col");
@@ -27273,7 +27274,9 @@ const MainView = ()=>{
                     _id: user._id,
                     Username: user.Username,
                     FavoriteMovies: user.FavoriteMovies,
-                    Verified: user.Verified
+                    Verified: user.Verified,
+                    Bio: user.Bio,
+                    ProfilePic: user.ProfilePic
                 };
             });
             setUsers(usersFromApi);
@@ -27290,7 +27293,7 @@ const MainView = ()=>{
         children: "Loading..."
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 125,
+        lineNumber: 128,
         columnNumber: 12
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.BrowserRouter), {
@@ -27304,7 +27307,7 @@ const MainView = ()=>{
                 }
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 130,
+                lineNumber: 133,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
@@ -27334,7 +27337,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 140,
+                            lineNumber: 143,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27354,7 +27357,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 155,
+                            lineNumber: 158,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27378,7 +27381,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 169,
+                            lineNumber: 172,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27428,7 +27431,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 191,
+                            lineNumber: 194,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27443,7 +27446,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 247,
+                            lineNumber: 250,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27486,7 +27489,23 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 258,
+                            lineNumber: 260,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
+                            path: "/upload",
+                            element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+                                children: user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _fileUploadForm.FileUploadForm), {
+                                    user: user,
+                                    token: token
+                                }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Navigate), {
+                                    to: "/login",
+                                    replace: true
+                                }, void 0, false, void 0, void 0)
+                            }, void 0, false)
+                        }, void 0, false, {
+                            fileName: "src/components/main-view/main-view.jsx",
+                            lineNumber: 304,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27508,24 +27527,24 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 302,
+                            lineNumber: 316,
                             columnNumber: 11
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 139,
+                    lineNumber: 142,
                     columnNumber: 9
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 138,
+                lineNumber: 141,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 129,
+        lineNumber: 132,
         columnNumber: 5
     }, undefined);
 };
@@ -27539,7 +27558,7 @@ $RefreshReg$(_c, "MainView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","../login-view/login-view":"9YtA0","../signup-view/signup-view":"4OGiN","../profile-view/profile-view":"2vVqf","../landing-view/landing-view":"1gfAJ","../user-list/user-list":"ie7Jt","../movie-search/movie-search":"70asd","../user-search/user-search":"ckFQK","react-bootstrap/Row":"cMC39","react-bootstrap/Col":"2L2I6","react-bootstrap/Button":"aPzUt","react-router-dom":"9xmpe","../navigation-bar/navigation-bar":"bsPVM","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"bwuIu":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","../login-view/login-view":"9YtA0","../signup-view/signup-view":"4OGiN","../profile-view/profile-view":"2vVqf","../landing-view/landing-view":"1gfAJ","../user-list/user-list":"ie7Jt","../movie-search/movie-search":"70asd","../user-search/user-search":"ckFQK","../file-upload-form/file-upload-form":"4WEaW","react-bootstrap/Row":"cMC39","react-bootstrap/Col":"2L2I6","react-bootstrap/Button":"aPzUt","react-router-dom":"9xmpe","../navigation-bar/navigation-bar":"bsPVM","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"bwuIu":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$67b2 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -35662,28 +35681,50 @@ const ProfileView = ({ token, user, movies, setUser, showFavoriteButtons })=>{
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                                 className: "d-flex align-items-center",
                                 children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                                        children: viewedUser && viewedUser.Username
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                                            src: viewedUser.ProfilePic,
+                                            className: "profile-pic",
+                                            alt: "profile picture"
+                                        }, void 0, false, {
+                                            fileName: "src/components/profile-view/profile-view.jsx",
+                                            lineNumber: 236,
+                                            columnNumber: 15
+                                        }, undefined)
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/profile-view.jsx",
                                         lineNumber: 235,
                                         columnNumber: 13
                                     }, undefined),
-                                    viewedUser && viewedUser.Verified && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                        className: "ml-2 mt-1",
-                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-                                            src: (0, _patchCheckFillSvgDefault.default),
-                                            className: "verified-img",
-                                            alt: "Verified Logo"
-                                        }, void 0, false, {
-                                            fileName: "src/components/profile-view/profile-view.jsx",
-                                            lineNumber: 238,
-                                            columnNumber: 17
-                                        }, undefined)
-                                    }, void 0, false, {
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 237,
-                                        columnNumber: 15
+                                        lineNumber: 242,
+                                        columnNumber: 13
+                                    }, undefined),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                        className: "username-container",
+                                        children: [
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                                                children: viewedUser && viewedUser.Username
+                                            }, void 0, false, {
+                                                fileName: "src/components/profile-view/profile-view.jsx",
+                                                lineNumber: 244,
+                                                columnNumber: 15
+                                            }, undefined),
+                                            viewedUser && viewedUser.Verified && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                                                src: (0, _patchCheckFillSvgDefault.default),
+                                                className: "verified-img",
+                                                alt: "Verified Logo"
+                                            }, void 0, false, {
+                                                fileName: "src/components/profile-view/profile-view.jsx",
+                                                lineNumber: 246,
+                                                columnNumber: 17
+                                            }, undefined)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "src/components/profile-view/profile-view.jsx",
+                                        lineNumber: 243,
+                                        columnNumber: 13
                                     }, undefined)
                                 ]
                             }, void 0, true, {
@@ -35694,12 +35735,27 @@ const ProfileView = ({ token, user, movies, setUser, showFavoriteButtons })=>{
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                                 className: "my-2",
                                 children: [
-                                    "Birthday: ",
-                                    viewedUser && formattedDate
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                        children: viewedUser && viewedUser.Bio
+                                    }, void 0, false, {
+                                        fileName: "src/components/profile-view/profile-view.jsx",
+                                        lineNumber: 255,
+                                        columnNumber: 13
+                                    }, undefined),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                        children: [
+                                            "Birthday: ",
+                                            viewedUser && formattedDate
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "src/components/profile-view/profile-view.jsx",
+                                        lineNumber: 256,
+                                        columnNumber: 13
+                                    }, undefined)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 246,
+                                lineNumber: 254,
                                 columnNumber: 11
                             }, undefined),
                             isOwnProfile && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
@@ -35711,17 +35767,17 @@ const ProfileView = ({ token, user, movies, setUser, showFavoriteButtons })=>{
                                         children: "Edit profile"
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 249,
+                                        lineNumber: 260,
                                         columnNumber: 15
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 256,
+                                        lineNumber: 267,
                                         columnNumber: 15
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 257,
+                                        lineNumber: 268,
                                         columnNumber: 15
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
@@ -35731,7 +35787,7 @@ const ProfileView = ({ token, user, movies, setUser, showFavoriteButtons })=>{
                                         children: "Delete profile"
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 258,
+                                        lineNumber: 269,
                                         columnNumber: 15
                                     }, undefined)
                                 ]
@@ -35744,14 +35800,14 @@ const ProfileView = ({ token, user, movies, setUser, showFavoriteButtons })=>{
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("hr", {}, void 0, false, {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 268,
+                        lineNumber: 279,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
                         children: "Favorite Movies"
                     }, void 0, false, {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 269,
+                        lineNumber: 280,
                         columnNumber: 9
                     }, undefined),
                     viewedUser && favoriteMovieList.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
@@ -35765,12 +35821,12 @@ const ProfileView = ({ token, user, movies, setUser, showFavoriteButtons })=>{
                                 showFavoriteButtons: isOwnProfile
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 274,
+                                lineNumber: 285,
                                 columnNumber: 15
                             }, undefined)
                         }, movie._id, false, {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 273,
+                            lineNumber: 284,
                             columnNumber: 13
                         }, undefined))
                 ]
@@ -39304,7 +39360,120 @@ $RefreshReg$(_c, "UserSearch");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap/Form":"iBZ80","../../img/search.svg":"ai9h7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"bsPVM":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap/Form":"iBZ80","../../img/search.svg":"ai9h7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"4WEaW":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$73ef = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$73ef.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "FileUploadForm", ()=>FileUploadForm);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _s = $RefreshSig$();
+const FileUploadForm = ({ user, token })=>{
+    _s();
+    const [message, setMessage] = (0, _react.useState)("");
+    const MAX_FILE_SIZE = 5242880; // 5MB in bytes
+    const handleUpload = async (e)=>{
+        e.preventDefault();
+        const file = e.target.ProfilePic.files[0];
+        if (!file) {
+            setMessage("Please select a file to upload.");
+            return;
+        }
+        if (file.size > MAX_FILE_SIZE) {
+            setMessage("File size exceeds the maximum limit (5MB).");
+            return;
+        }
+        const formData = new FormData(e.target);
+        try {
+            const response = await fetch("https://chaseflix-481df0d77a4b.herokuapp.com/upload", {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                body: formData
+            });
+            console.log("Response: ", response);
+            if (response.ok) {
+                const data = await response.text();
+                const newProfilePic = data.link;
+                const updateUserResponse = await fetch(`https://chaseflix-481df0d77a4b.herokuapp.com/users/${user.Username}`, {
+                    method: "PUT",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        ProfilePic: newProfilePic
+                    })
+                });
+                if (updateUserResponse.ok) setMessage("File uploaded and user profile updated successfully.");
+                else setMessage("An error has occurred while updating user profile.");
+            } else setMessage("An error has occurred during file upload.");
+        } catch (error) {
+            console.error("Error uploading file:", error);
+            setMessage("An error has occurred during file upload.");
+        }
+    };
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                children: "File Upload"
+            }, void 0, false, {
+                fileName: "src/components/file-upload-form/file-upload-form.jsx",
+                lineNumber: 69,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
+                onSubmit: handleUpload,
+                encType: "multipart/form-data",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                        type: "file",
+                        name: "ProfilePic",
+                        accept: "image/*"
+                    }, void 0, false, {
+                        fileName: "src/components/file-upload-form/file-upload-form.jsx",
+                        lineNumber: 71,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                        type: "submit",
+                        children: "Upload"
+                    }, void 0, false, {
+                        fileName: "src/components/file-upload-form/file-upload-form.jsx",
+                        lineNumber: 72,
+                        columnNumber: 9
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/file-upload-form/file-upload-form.jsx",
+                lineNumber: 70,
+                columnNumber: 7
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/file-upload-form/file-upload-form.jsx",
+        lineNumber: 68,
+        columnNumber: 5
+    }, undefined);
+};
+_s(FileUploadForm, "EiOGSxO4GWQlH0sM782nQ9JwuAs=");
+_c = FileUploadForm;
+var _c;
+$RefreshReg$(_c, "FileUploadForm");
+
+  $parcel$ReactRefreshHelpers$73ef.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"bsPVM":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$abf5 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;

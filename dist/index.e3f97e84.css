@@ -52945,12 +52945,25 @@ textarea.form-control-lg {
 .verified-img {
   width: 22px;
   height: 22px;
-  margin-top: -10px;
-  margin-left: 15px;
 }
 
 .button-style {
   width: 130px;
+}
+
+.profile-pic {
+  border-radius: 200px;
+  width: 175px;
+  height: 175px;
+}
+
+.username-container {
+  align-items: center;
+  display: flex;
+}
+
+.username-container h2, .username-container .h2 {
+  margin-right: 10px;
 }
 
 .form-control:not(active) {

@@ -8,6 +8,7 @@ import { LandingView } from "../landing-view/landing-view";
 import { UserList } from "../user-list/user-list";
 import { MovieSearch } from "../movie-search/movie-search";
 import { UserSearch } from "../user-search/user-search";
+import { FileUploadForm } from "../file-upload-form/file-upload-form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
@@ -104,6 +105,8 @@ export const MainView = () => {
             Username: user.Username,
             FavoriteMovies: user.FavoriteMovies,
             Verified: user.Verified,
+            Bio: user.Bio,
+            ProfilePic: user.ProfilePic,
           };
         });
 
@@ -254,7 +257,6 @@ export const MainView = () => {
               </>
             }
           />
-
           <Route
             path="/users"
             element={
@@ -295,6 +297,18 @@ export const MainView = () => {
                       )}
                     </Row>
                   </>
+                )}
+              </>
+            }
+          />
+          <Route
+            path="/upload"
+            element={
+              <>
+                {user ? (
+                  <FileUploadForm user={user} token={token} />
+                ) : (
+                  <Navigate to="/login" replace />
                 )}
               </>
             }
