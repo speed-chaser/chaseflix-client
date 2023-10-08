@@ -232,18 +232,29 @@ export const ProfileView = ({
       <Row className="h-100 text-light">
         <Col>
           <div className="d-flex align-items-center">
-            <h2>{viewedUser && viewedUser.Username}</h2>
-            {viewedUser && viewedUser.Verified && (
-              <div className="ml-2 mt-1">
+            <div>
+              <img
+                src={viewedUser.ProfilePic}
+                className="profile-pic"
+                alt="profile picture"
+              />
+            </div>
+            <br />
+            <div className="username-container">
+              <h2>{viewedUser && viewedUser.Username}</h2>
+              {viewedUser && viewedUser.Verified && (
                 <img
                   src={verifiedLogo}
                   className="verified-img"
                   alt="Verified Logo"
                 />
-              </div>
-            )}
+              )}
+            </div>
           </div>
-          <div className="my-2">Birthday: {viewedUser && formattedDate}</div>
+          <div className="my-2">
+            <p>{viewedUser && viewedUser.Bio}</p>
+            <p>Birthday: {viewedUser && formattedDate}</p>
+          </div>
           {isOwnProfile && (
             <>
               <Button

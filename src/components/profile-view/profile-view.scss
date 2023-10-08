@@ -20,14 +20,27 @@ $text-light-fade: rgba(255, 255, 255, 0.4);
 }
 
 .verified-img {
-  margin-left: 15px;
-  margin-top: -10px;
   width: 22px;
   height: 22px;
 }
 
 .button-style {
   width: 130px;
+}
+
+.profile-pic {
+  width: 175px;
+  height: 175px;
+  border-radius: 200px;
+}
+
+.username-container {
+  display: flex;
+  align-items: center;
+}
+
+.username-container h2 {
+  margin-right: 10px;
 }
 
 .form-control:not(active) {
