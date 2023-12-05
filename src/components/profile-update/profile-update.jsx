@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "./profile-update.scss";
 import Modal from "react-bootstrap/Modal";
-import { ProfilePicUpload } from "./ProfilePicUpload"; // Import the ProfilePicUpload component
+import { FileUploadForm } from "./FileUploadForm/FileUploadForm";
 
 export const ProfileUpdate = ({ user, token, setUser }) => {
   const [Username, setUsername] = useState("");
@@ -133,7 +133,7 @@ export const ProfileUpdate = ({ user, token, setUser }) => {
             <Modal.Title>Upload Profile Picture</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <ProfilePicUpload token={token} onUpload={handlePicUpload} />
+            <FileUploadForm token={token} onUpload={handlePicUpload} />
           </Modal.Body>
         </Modal>
         <Button variant="primary" type="submit">
