@@ -33,11 +33,12 @@ export const MainView = () => {
   const [filteredMovies, setFilteredMovies] = useState(movies);
   const [filteredUsers, setFilteredUsers] = useState(users);
 
-  const onLoggedIn = (user, token) => {
-    setUser(user); // Set the user state with the logged-in user
-    setToken(token);
-    localStorage.setItem("user", JSON.stringify(user));
-    localStorage.setItem("token", token);
+  const onLoggedIn = (authData) => {
+    console.log("Login token:", authData.token); // Log to verify token
+    setUser(authData.user);
+    setToken(authData.token);
+    localStorage.setItem("user", JSON.stringify(authData.user));
+    localStorage.setItem("token", authData.token);
   };
 
   const onLogout = () => {
