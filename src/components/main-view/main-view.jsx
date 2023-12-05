@@ -8,7 +8,7 @@ import { LandingView } from "../landing-view/landing-view";
 import { UserList } from "../user-list/user-list";
 import { MovieSearch } from "../movie-search/movie-search";
 import { UserSearch } from "../user-search/user-search";
-import { FileUploadForm } from "../file-upload-form/file-upload-form";
+import { ProfilePicUpload } from "../profile-pic-upload/profile-pic-upload";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
