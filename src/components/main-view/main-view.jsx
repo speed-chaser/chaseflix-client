@@ -44,11 +44,6 @@ export const MainView = () => {
     localStorage.clear();
   };
 
-  const updateUserProfile = (updatedUserData) => {
-    setUser(updatedUserData);
-    localStorage.setItem("user", JSON.stringify(updatedUserData));
-  };
-
   useEffect(
     () => {
       setFilteredMovies(movies);
@@ -304,16 +299,6 @@ export const MainView = () => {
                   </>
                 )}
               </>
-            }
-          />
-          <Route
-            path="/profile/update"
-            element={
-              <ProfileUpdate
-                user={user}
-                token={token}
-                onUpdateUserProfile={updateUserProfile}
-              />
             }
           />
           <Route
