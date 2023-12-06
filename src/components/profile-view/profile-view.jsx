@@ -20,6 +20,10 @@ export const ProfileView = ({
   const { Username: profileUsername } = useParams();
   const [viewedUser, setViewedUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [updateUsername, setUpdateUsername] = useState("");
+  const [Password, setPassword] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Birthday, setBirthday] = useState("");
   const [isFollowing, setIsFollowing] = useState(false);
 
   //Favorite movie calculator
@@ -288,23 +292,24 @@ export const ProfileView = ({
                   alt="Verified Logo"
                 />
               )}
+              {/* Follow/Unfollow Button */}
+              {!isOwnProfile &&
+                (isFollowing ? (
+                  <Button variant="secondary" onClick={handleUnfollow}>
+                    Unfollow
+                  </Button>
+                ) : (
+                  <Button variant="primary" onClick={handleFollow}>
+                    Follow
+                  </Button>
+                ))}
             </div>
           </div>
           <div className="my-2">
             <p>{viewedUser && viewedUser.Bio}</p>
             <p>Birthday: {viewedUser && formattedDate}</p>
           </div>
-          {/* Follow/Unfollow Button */}
-          {!isOwnProfile &&
-            (isFollowing ? (
-              <Button variant="secondary" onClick={handleUnfollow}>
-                Unfollow
-              </Button>
-            ) : (
-              <Button variant="primary" onClick={handleFollow}>
-                Follow
-              </Button>
-            ))}
+
           {isOwnProfile && (
             <>
               <Button

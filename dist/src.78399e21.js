@@ -601,6 +601,10 @@ const ProfileView = ({
   } = (0, _reactRouterDom.useParams)();
   const [viewedUser, setViewedUser] = (0, _react.useState)(null);
   const [loading, setLoading] = (0, _react.useState)(true);
+  const [updateUsername, setUpdateUsername] = (0, _react.useState)("");
+  const [Password, setPassword] = (0, _react.useState)("");
+  const [Email, setEmail] = (0, _react.useState)("");
+  const [Birthday, setBirthday] = (0, _react.useState)("");
   const [isFollowing, setIsFollowing] = (0, _react.useState)(false);
 
   //Favorite movie calculator
@@ -806,15 +810,15 @@ const ProfileView = ({
     src: _patchCheckFill.default,
     className: "verified-img",
     alt: "Verified Logo"
-  }))), /*#__PURE__*/_react.default.createElement("div", {
-    className: "my-2"
-  }, /*#__PURE__*/_react.default.createElement("p", null, viewedUser && viewedUser.Bio), /*#__PURE__*/_react.default.createElement("p", null, "Birthday: ", viewedUser && formattedDate)), !isOwnProfile && (isFollowing ? /*#__PURE__*/_react.default.createElement(_Button.default, {
+  }), !isOwnProfile && (isFollowing ? /*#__PURE__*/_react.default.createElement(_Button.default, {
     variant: "secondary",
     onClick: handleUnfollow
   }, "Unfollow") : /*#__PURE__*/_react.default.createElement(_Button.default, {
     variant: "primary",
     onClick: handleFollow
-  }, "Follow")), isOwnProfile && /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_Button.default, {
+  }, "Follow")))), /*#__PURE__*/_react.default.createElement("div", {
+    className: "my-2"
+  }, /*#__PURE__*/_react.default.createElement("p", null, viewedUser && viewedUser.Bio), /*#__PURE__*/_react.default.createElement("p", null, "Birthday: ", viewedUser && formattedDate)), isOwnProfile && /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_Button.default, {
     variant: "primary",
     className: "button-style",
     onClick: handleShowUpdateModal
