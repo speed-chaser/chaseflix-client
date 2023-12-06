@@ -24,7 +24,6 @@ export const ProfileView = ({
   const [Password, setPassword] = useState("");
   const [Email, setEmail] = useState("");
   const [Birthday, setBirthday] = useState("");
-  const [isFollowing, setIsFollowing] = useState(false);
 
   //Favorite movie calculator
   const favoriteMovieList = movies.filter((m) => {
@@ -64,48 +63,6 @@ export const ProfileView = ({
         setLoading(false);
       });
   }, [profileUsername, token]);
-
-  const handleFollow = () => {
-    fetch(
-      `https://chaseflix-481df0d77a4b.herokuapp.com/users/${user._id}/follow/${viewedUser._id}`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
-      .then((response) => {
-        if (response.ok) {
-          setIsFollowing(true);
-          alert("Followed Successfully");
-        } else {
-          alert("Failed to follow");
-        }
-      })
-      .catch((error) => console.error("Error:", error));
-  };
-
-  const handleUnfollow = () => {
-    fetch(
-      `https://chaseflix-481df0d77a4b.herokuapp.com/users/${user._id}/follow/${viewedUser._id}`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
-      .then((response) => {
-        if (response.ok) {
-          setIsFollowing(false);
-          alert("Unfollowed successfully");
-        } else {
-          alert("Failed to unfollow");
-        }
-      })
-      .catch((error) => console.error("Error:", error));
-  };
 
   const handleUpdateSubmit = (event) => {
     event.preventDefault();
@@ -292,24 +249,12 @@ export const ProfileView = ({
                   alt="Verified Logo"
                 />
               )}
-              {/* Follow/Unfollow Button */}
-              {!isOwnProfile &&
-                (isFollowing ? (
-                  <Button variant="secondary" onClick={handleUnfollow}>
-                    Unfollow
-                  </Button>
-                ) : (
-                  <Button variant="primary" onClick={handleFollow}>
-                    Follow
-                  </Button>
-                ))}
             </div>
           </div>
           <div className="my-2">
             <p>{viewedUser && viewedUser.Bio}</p>
             <p>Birthday: {viewedUser && formattedDate}</p>
           </div>
-
           {isOwnProfile && (
             <>
               <Button

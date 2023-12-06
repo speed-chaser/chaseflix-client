@@ -8,10 +8,10 @@ import { LandingView } from "../landing-view/landing-view";
 import { UserList } from "../user-list/user-list";
 import { MovieSearch } from "../movie-search/movie-search";
 import { UserSearch } from "../user-search/user-search";
+import { FileUploadForm } from "../file-upload-form/file-upload-form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import { FileUploadForm } from "../file-upload-form/file-upload-form";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 
@@ -33,12 +33,11 @@ export const MainView = () => {
   const [filteredMovies, setFilteredMovies] = useState(movies);
   const [filteredUsers, setFilteredUsers] = useState(users);
 
-  const onLoggedIn = (authData) => {
-    console.log("Login token:", authData.token); // Log to verify token
-    setUser(authData.user);
-    setToken(authData.token);
-    localStorage.setItem("user", JSON.stringify(authData.user));
-    localStorage.setItem("token", authData.token);
+  const onLoggedIn = (user, token) => {
+    setUser(user); // Set the user state with the logged-in user
+    setToken(token);
+    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("token", token);
   };
 
   const onLogout = () => {
@@ -298,6 +297,18 @@ export const MainView = () => {
                       )}
                     </Row>
                   </>
+                )}
+              </>
+            }
+          />
+          <Route
+            path="/upload"
+            element={
+              <>
+                {user ? (
+                  <FileUploadForm user={user} token={token} />
+                ) : (
+                  <Navigate to="/login" replace />
                 )}
               </>
             }
