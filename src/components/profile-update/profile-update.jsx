@@ -2,22 +2,12 @@ import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "./profile-update.scss";
-import Modal from "react-bootstrap/Modal";
-import { FileUploadForm } from "../file-upload-form/file-upload-form";
 
 export const ProfileUpdate = ({ user, token, setUser }) => {
   const [Username, setUsername] = useState("");
   const [Password, setPassword] = useState("");
   const [Email, setEmail] = useState("");
   const [Birthday, setBirthday] = useState("");
-  const [Bio, setBio] = useState("");
-  const [showPicUploadModal, setShowPicUploadModal] = useState(false);
-  const [uploadedPicUrl, setUploadedPicUrl] = useState("");
-
-  const handlePicUpload = (url) => {
-    setUploadedPicUrl(url);
-    setShowPicUploadModal(false); // Close the modal after upload
-  };
 
   const handleUpdateSubmit = (event) => {
     event.preventDefault();
@@ -29,8 +19,6 @@ export const ProfileUpdate = ({ user, token, setUser }) => {
       Password: Password,
       Email: Email,
       Birthday: Birthday,
-      Bio: Bio,
-      ProfilePic: UploadedPicUrl || user.ProfilePic,
     };
 
     fetch(
@@ -65,7 +53,7 @@ export const ProfileUpdate = ({ user, token, setUser }) => {
       className="text-light"
       style={{ display: "block", position: "initial" }}
     >
-      <h3>Edit profile</h3>
+      <h3>Update profile</h3>
       <br />
       <Form onSubmit={handleUpdateSubmit}>
         <Form.Group controlId="formUpUsername">
@@ -110,32 +98,6 @@ export const ProfileUpdate = ({ user, token, setUser }) => {
             className="text-light"
           />
         </Form.Group>
-        <Form.Group controlId="formUpBio">
-          <Form.Label>Bio</Form.Label>
-          <Form.Control
-            type="textarea"
-            rows={3}
-            value={Bio}
-            onChange={(e) => setBio(e.target.value)}
-            className="text-light"
-          />
-        </Form.Group>
-        <Button onClick={() => setShowPicUploadModal(true)}>
-          Upload Profile Picture
-        </Button>
-
-        {/* Profile Picture Upload Modal */}
-        <Modal
-          show={showPicUploadModal}
-          onHide={() => setShowPicUploadModal(false)}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Upload Profile Picture</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <FileUploadForm token={token} onUpload={handlePicUpload} />
-          </Modal.Body>
-        </Modal>
         <Button variant="primary" type="submit">
           Save changes
         </Button>
