@@ -567,98 +567,109 @@ const SignupView = ({
   }, "Note:", /*#__PURE__*/_react.default.createElement("br", null), "We will not use or distribute your email or any of your data.", /*#__PURE__*/_react.default.createElement("br", null), "We will never ask for your password nor do I have access to it.")));
 };
 exports.SignupView = SignupView;
-},{"./signup-view.scss":"components/movie-card/movie-card.scss"}],"components/file-upload-form/file-upload-form.jsx":[function(require,module,exports) {
+},{"./signup-view.scss":"components/movie-card/movie-card.scss"}],"img/patch-check-fill.svg":[function(require,module,exports) {
+module.exports = "/patch-check-fill.484a25e2.svg";
+},{}],"components/profile-view/profile-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.FileUploadForm = void 0;
+exports.ProfileView = void 0;
+var _reactRouterDom = require("react-router-dom");
 var _react = _interopRequireWildcard(require("react"));
-var _Form = _interopRequireDefault(require("react-bootstrap/Form"));
+var _movieCard = require("../movie-card/movie-card.jsx");
+var _Col = _interopRequireDefault(require("react-bootstrap/Col"));
+var _Row = _interopRequireDefault(require("react-bootstrap/Row"));
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
+var _Form = _interopRequireDefault(require("react-bootstrap/Form"));
+var _Modal = _interopRequireDefault(require("react-bootstrap/Modal"));
+var _patchCheckFill = _interopRequireDefault(require("../../img/patch-check-fill.svg"));
+require("./profile-view.scss");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
-const FileUploadForm = ({
+const ProfileView = ({
   token,
-  onUpload
+  user,
+  movies,
+  setUser,
+  showFavoriteButtons
 }) => {
-  const [selectedFile, setSelectedFile] = (0, _react.useState)(null);
-  const handleFileChange = event => {
-    setSelectedFile(event.target.files[0]);
-  };
-  const handleUpload = event => {
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append("ProfilePic", selectedFile);
-    fetch("https://chaseflix-481df0d77a4b.herokuapp.com/upload", {
+  const {
+    Username: profileUsername
+  } = (0, _reactRouterDom.useParams)();
+  const [viewedUser, setViewedUser] = (0, _react.useState)(null);
+  const [loading, setLoading] = (0, _react.useState)(true);
+  const [isFollowing, setIsFollowing] = (0, _react.useState)(false);
+
+  //Favorite movie calculator
+  const favoriteMovieList = movies.filter(m => {
+    return viewedUser && viewedUser.FavoriteMovies.includes(m._id);
+  });
+
+  // Modal states
+  const [showModal, setShowModal] = (0, _react.useState)(false);
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
+  const [showUpdateModal, setShowUpdateModal] = (0, _react.useState)(false);
+  const handleCloseUpdateModal = () => setShowUpdateModal(false);
+  const handleShowUpdateModal = () => setShowUpdateModal(true);
+  (0, _react.useEffect)(() => {
+    if (!profileUsername) return;
+    fetch(`https://chaseflix-481df0d77a4b.herokuapp.com/users/${profileUsername}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      }
+    }).then(response => {
+      if (response.ok) return response.json();
+      throw new Error("User not found");
+    }).then(userData => {
+      setViewedUser(userData);
+      setLoading(false);
+    }).catch(error => {
+      console.error("Error fetching user:", error);
+      setLoading(false);
+    });
+  }, [profileUsername, token]);
+  const handleFollow = () => {
+    fetch(`https://chaseflix-481df0d77a4b.herokuapp.com/users/${user._id}/follow/${viewedUser._id}`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`
-      },
-      body: formData
-    }).then(response => response.json()).then(data => {
-      console.log(data);
-      alert("Profile picture uploaded successfully!");
-      onUpload(data.fileLocation);
-    }).catch(error => {
-      console.error("Error uploading file:", error);
-      alert("Failed to upload profile picture.");
-    });
+      }
+    }).then(response => {
+      if (response.ok) {
+        setIsFollowing(true);
+        alert("Followed Successfully");
+      } else {
+        alert("Failed to follow");
+      }
+    }).catch(error => console.error("Error:", error));
   };
-  return /*#__PURE__*/_react.default.createElement(_Form.default, {
-    onSubmit: handleUpload
-  }, /*#__PURE__*/_react.default.createElement(_Form.default.Group, null, /*#__PURE__*/_react.default.createElement(_Form.default.Label, null, "Upload Profile Picture"), /*#__PURE__*/_react.default.createElement(_Form.default.Control, {
-    type: "file",
-    onChange: handleFileChange
-  })), /*#__PURE__*/_react.default.createElement(_Button.default, {
-    type: "submit"
-  }, "Upload"));
-};
-exports.FileUploadForm = FileUploadForm;
-},{}],"components/profile-update/profile-update.jsx":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.ProfileUpdate = void 0;
-var _react = _interopRequireWildcard(require("react"));
-var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
-var _Form = _interopRequireDefault(require("react-bootstrap/Form"));
-require("./profile-update.scss");
-var _Modal = _interopRequireDefault(require("react-bootstrap/Modal"));
-var _fileUploadForm = require("../file-upload-form/file-upload-form");
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
-function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
-const ProfileUpdate = ({
-  user,
-  token,
-  setUser
-}) => {
-  const [Username, setUsername] = (0, _react.useState)("");
-  const [Password, setPassword] = (0, _react.useState)("");
-  const [Email, setEmail] = (0, _react.useState)("");
-  const [Birthday, setBirthday] = (0, _react.useState)("");
-  const [Bio, setBio] = (0, _react.useState)("");
-  const [showPicUploadModal, setShowPicUploadModal] = (0, _react.useState)(false);
-  const [uploadedPicUrl, setUploadedPicUrl] = (0, _react.useState)("");
-  const handlePicUpload = url => {
-    setUploadedPicUrl(url);
-    setShowPicUploadModal(false); // Close the modal after upload
+  const handleUnfollow = () => {
+    fetch(`https://chaseflix-481df0d77a4b.herokuapp.com/users/${user._id}/follow/${viewedUser._id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(response => {
+      if (response.ok) {
+        setIsFollowing(false);
+        alert("Unfollowed successfully");
+      } else {
+        alert("Failed to unfollow");
+      }
+    }).catch(error => console.error("Error:", error));
   };
   const handleUpdateSubmit = event => {
     event.preventDefault();
-    console.log("profile-update User:", user);
     const data = {
-      Username: Username,
+      Username: updateUsername,
       Password: Password,
       Email: Email,
-      Birthday: Birthday,
-      Bio: Bio,
-      ProfilePic: UploadedPicUrl || user.ProfilePic
+      Birthday: Birthday
     };
     fetch(`https://chaseflix-481df0d77a4b.herokuapp.com/users/${user.Username}`, {
       method: "PUT",
@@ -669,32 +680,75 @@ const ProfileUpdate = ({
       body: JSON.stringify(data)
     }).then(response => {
       if (response.ok) {
-        alert("Data updated!", user, data);
+        alert("Data updated! You will be sent to login with your new information.");
         return response.json();
       } else {
-        alert("Update failed :(", user);
+        alert("Update failed :(", user, data);
       }
     }).then(data => {
       localStorage.setItem("user", JSON.stringify(data));
       localStorage.setItem("token", data.token);
       setUser(data);
-      window.location.replace("/");
+      localStorage.clear();
+      setUser(null);
+      window.location.reload();
     });
   };
-  return /*#__PURE__*/_react.default.createElement("div", {
+  const handleDeleteSubmit = event => {
+    event.preventDefault();
+    fetch(`https://chaseflix-481df0d77a4b.herokuapp.com/users/${user.Username}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      }
+    }).then(response => {
+      if (response.ok) {
+        alert("User Deleted");
+        localStorage.clear();
+        setUser(null);
+        window.location.reload();
+      } else {
+        alert("Update failed :(");
+        window.location.reload();
+      }
+    }).catch(e => {
+      alert("something went wrong");
+      window.location.reload();
+    });
+  };
+  if (loading) {
+    return /*#__PURE__*/_react.default.createElement("div", null, "Loading...");
+  }
+  if (!viewedUser) {
+    return /*#__PURE__*/_react.default.createElement("div", null, "User not found.");
+  }
+
+  //Birthday calculator
+  const birthdayDate = viewedUser ? new Date(viewedUser.Birthday) : null;
+  const options = {
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC"
+  };
+  const formattedDate = birthdayDate.toLocaleDateString(undefined, options);
+
+  //Checking if the viewing user is the same as the logged in user
+  const isOwnProfile = user && user._id === viewedUser._id;
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_Modal.default, {
+    show: showUpdateModal,
     className: "text-light",
-    style: {
-      display: "block",
-      position: "initial"
-    }
-  }, /*#__PURE__*/_react.default.createElement("h3", null, "Edit profile"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_Form.default, {
+    onHide: handleCloseUpdateModal
+  }, /*#__PURE__*/_react.default.createElement(_Modal.default.Header, {
+    closeButton: true
+  }, /*#__PURE__*/_react.default.createElement(_Modal.default.Title, null, "Update Profile")), /*#__PURE__*/_react.default.createElement(_Modal.default.Body, null, /*#__PURE__*/_react.default.createElement(_Form.default, {
     onSubmit: handleUpdateSubmit
   }, /*#__PURE__*/_react.default.createElement(_Form.default.Group, {
     controlId: "formUpUsername"
   }, /*#__PURE__*/_react.default.createElement(_Form.default.Label, null, "Username"), /*#__PURE__*/_react.default.createElement(_Form.default.Control, {
     type: "text",
-    value: Username,
-    onChange: e => setUsername(e.target.value),
+    value: updateUsername,
+    onChange: e => setUpdateUsername(e.target.value),
     required: true,
     minLength: "3",
     className: "text-light"
@@ -723,142 +777,65 @@ const ProfileUpdate = ({
     onChange: e => setBirthday(e.target.value),
     required: true,
     className: "text-light"
-  })), /*#__PURE__*/_react.default.createElement(_Form.default.Group, {
-    controlId: "formUpBio"
-  }, /*#__PURE__*/_react.default.createElement(_Form.default.Label, null, "Bio"), /*#__PURE__*/_react.default.createElement(_Form.default.Control, {
-    type: "textarea",
-    rows: 3,
-    value: Bio,
-    onChange: e => setBio(e.target.value),
-    className: "text-light"
   })), /*#__PURE__*/_react.default.createElement(_Button.default, {
-    onClick: () => setShowPicUploadModal(true)
-  }, "Upload Profile Picture"), /*#__PURE__*/_react.default.createElement(_Modal.default, {
-    show: showPicUploadModal,
-    onHide: () => setShowPicUploadModal(false)
-  }, /*#__PURE__*/_react.default.createElement(_Modal.default.Header, {
-    closeButton: true
-  }, /*#__PURE__*/_react.default.createElement(_Modal.default.Title, null, "Upload Profile Picture")), /*#__PURE__*/_react.default.createElement(_Modal.default.Body, null, /*#__PURE__*/_react.default.createElement(_fileUploadForm.FileUploadForm, {
-    token: token,
-    onUpload: handlePicUpload
-  }))), /*#__PURE__*/_react.default.createElement(_Button.default, {
     variant: "primary",
     type: "submit"
-  }, "Save changes")), /*#__PURE__*/_react.default.createElement(_Form.default, {
-    method: "get",
-    action: "/"
-  }, /*#__PURE__*/_react.default.createElement(_Button.default, {
-    variant: "primary",
+  }, "Save changes")))), /*#__PURE__*/_react.default.createElement(_Modal.default, {
+    show: showModal,
+    className: "text-light",
+    onHide: handleClose
+  }, /*#__PURE__*/_react.default.createElement(_Modal.default.Header, null, /*#__PURE__*/_react.default.createElement(_Modal.default.Title, null, "Delete account")), /*#__PURE__*/_react.default.createElement(_Modal.default.Body, null, /*#__PURE__*/_react.default.createElement(_Form.default, {
+    onSubmit: handleDeleteSubmit
+  }, /*#__PURE__*/_react.default.createElement("p", null, "Are you sure you want to delete your account, ", user.Username, "?"), /*#__PURE__*/_react.default.createElement(_Button.default, {
+    variant: "danger",
     type: "submit"
-  }, "Back")));
-};
-exports.ProfileUpdate = ProfileUpdate;
-},{"./profile-update.scss":"components/movie-card/movie-card.scss","../file-upload-form/file-upload-form":"components/file-upload-form/file-upload-form.jsx"}],"img/patch-check-fill.svg":[function(require,module,exports) {
-module.exports = "/patch-check-fill.484a25e2.svg";
-},{}],"components/profile-view/profile-view.jsx":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.ProfileView = void 0;
-var _react = _interopRequireWildcard(require("react"));
-var _reactRouterDom = require("react-router-dom");
-var _movieCard = require("../movie-card/movie-card");
-var _profileUpdate = require("../profile-update/profile-update");
-var _Col = _interopRequireDefault(require("react-bootstrap/Col"));
-var _Row = _interopRequireDefault(require("react-bootstrap/Row"));
-var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
-var _Modal = _interopRequireDefault(require("react-bootstrap/Modal"));
-var _patchCheckFill = _interopRequireDefault(require("../../img/patch-check-fill.svg"));
-require("./profile-view.scss");
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
-function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
-const ProfileView = ({
-  token,
-  user,
-  movies,
-  setUser
-}) => {
-  const {
-    Username: profileUsername
-  } = (0, _reactRouterDom.useParams)();
-  const [viewedUser, setViewedUser] = (0, _react.useState)(null);
-  const [loading, setLoading] = (0, _react.useState)(true);
-  const [showUpdateModal, setShowUpdateModal] = (0, _react.useState)(false);
-  (0, _react.useEffect)(() => {
-    if (!profileUsername) return;
-    fetch(`https://chaseflix-481df0d77a4b.herokuapp.com/users/${profileUsername}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`
-      }
-    }).then(response => {
-      if (response.ok) return response.json();
-      throw new Error("User not found");
-    }).then(userData => {
-      setViewedUser(userData);
-      setLoading(false);
-    }).catch(error => {
-      console.error("Error fetching user:", error);
-      setLoading(false);
-    });
-  }, [profileUsername, token]);
-  const handleShowUpdateModal = () => setShowUpdateModal(true);
-  const handleCloseUpdateModal = () => setShowUpdateModal(false);
-  if (loading) {
-    return /*#__PURE__*/_react.default.createElement("div", null, "Loading...");
-  }
-  if (!viewedUser) {
-    return /*#__PURE__*/_react.default.createElement("div", null, "User not found.");
-  }
-  const birthdayDate = new Date(viewedUser.Birthday);
-  const formattedBirthday = birthdayDate.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-  });
-  const favoriteMovieList = movies.filter(movie => viewedUser.FavoriteMovies.includes(movie._id));
-  const isOwnProfile = user && user._id === viewedUser._id;
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_Row.default, {
+  }, "Delete my account"), /*#__PURE__*/_react.default.createElement(_Button.default, {
+    variant: "secondary",
+    onClick: handleClose
+  }, "Cancel")))), /*#__PURE__*/_react.default.createElement(_Row.default, {
     className: "h-100 text-light"
   }, /*#__PURE__*/_react.default.createElement(_Col.default, null, /*#__PURE__*/_react.default.createElement("div", {
     className: "d-flex align-items-center"
-  }, /*#__PURE__*/_react.default.createElement("img", {
+  }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("img", {
     src: viewedUser.ProfilePic,
     className: "profile-pic",
-    alt: "Profile"
-  }), /*#__PURE__*/_react.default.createElement("div", {
+    alt: "profile picture"
+  })), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("div", {
     className: "username-container"
-  }, /*#__PURE__*/_react.default.createElement("h2", null, viewedUser.Username), viewedUser.Verified && /*#__PURE__*/_react.default.createElement("img", {
+  }, /*#__PURE__*/_react.default.createElement("h2", null, viewedUser && viewedUser.Username), viewedUser && viewedUser.Verified && /*#__PURE__*/_react.default.createElement("img", {
     src: _patchCheckFill.default,
     className: "verified-img",
     alt: "Verified Logo"
   }))), /*#__PURE__*/_react.default.createElement("div", {
     className: "my-2"
-  }, /*#__PURE__*/_react.default.createElement("p", null, viewedUser.Bio), /*#__PURE__*/_react.default.createElement("p", null, "Birthday: ", formattedBirthday)), isOwnProfile && /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_Button.default, {
+  }, /*#__PURE__*/_react.default.createElement("p", null, viewedUser && viewedUser.Bio), /*#__PURE__*/_react.default.createElement("p", null, "Birthday: ", viewedUser && formattedDate)), !isOwnProfile && (isFollowing ? /*#__PURE__*/_react.default.createElement(_Button.default, {
+    variant: "secondary",
+    onClick: handleUnfollow
+  }, "Unfollow") : /*#__PURE__*/_react.default.createElement(_Button.default, {
     variant: "primary",
+    onClick: handleFollow
+  }, "Follow")), isOwnProfile && /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_Button.default, {
+    variant: "primary",
+    className: "button-style",
     onClick: handleShowUpdateModal
-  }, "Edit Profile")))), /*#__PURE__*/_react.default.createElement(_Row.default, null, /*#__PURE__*/_react.default.createElement("h2", null, "Favorite Movies"), favoriteMovieList.map(movie => /*#__PURE__*/_react.default.createElement(_Col.default, {
+  }, "Edit profile"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_Button.default, {
+    className: "mb-3 button-style",
+    variant: "danger",
+    onClick: handleShow
+  }, "Delete profile"))), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("h2", null, "Favorite Movies"), viewedUser && favoriteMovieList.map(movie => /*#__PURE__*/_react.default.createElement(_Col.default, {
     className: "mb-5",
     md: 3,
     key: movie._id
   }, /*#__PURE__*/_react.default.createElement(_movieCard.MovieCard, {
-    movie: movie
-  })))), /*#__PURE__*/_react.default.createElement(_Modal.default, {
-    show: showUpdateModal,
-    onHide: handleCloseUpdateModal
-  }, /*#__PURE__*/_react.default.createElement(_Modal.default.Header, {
-    closeButton: true
-  }, /*#__PURE__*/_react.default.createElement(_Modal.default.Title, null, "Edit Profile")), /*#__PURE__*/_react.default.createElement(_Modal.default.Body, null, /*#__PURE__*/_react.default.createElement(_profileUpdate.ProfileUpdate, {
+    movie: movie,
     user: viewedUser,
     token: token,
-    setUser: setUser
-  }))));
+    setUser: setUser,
+    showFavoriteButtons: isOwnProfile
+  })))));
 };
 exports.ProfileView = ProfileView;
-},{"../movie-card/movie-card":"components/movie-card/movie-card.jsx","../profile-update/profile-update":"components/profile-update/profile-update.jsx","../../img/patch-check-fill.svg":"img/patch-check-fill.svg","./profile-view.scss":"components/movie-card/movie-card.scss"}],"components/landing-view/landing-view.jsx":[function(require,module,exports) {
+},{"../movie-card/movie-card.jsx":"components/movie-card/movie-card.jsx","../../img/patch-check-fill.svg":"img/patch-check-fill.svg","./profile-view.scss":"components/movie-card/movie-card.scss"}],"components/landing-view/landing-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1032,7 +1009,57 @@ const UserSearch = ({
   }));
 };
 exports.UserSearch = UserSearch;
-},{"../../img/search.svg":"img/search.svg"}],"components/navigation-bar/navigation-bar.jsx":[function(require,module,exports) {
+},{"../../img/search.svg":"img/search.svg"}],"components/file-upload-form/file-upload-form.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.FileUploadForm = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _Form = _interopRequireDefault(require("react-bootstrap/Form"));
+var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
+function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+const FileUploadForm = ({
+  token,
+  onUpload
+}) => {
+  const [selectedFile, setSelectedFile] = (0, _react.useState)(null);
+  const handleFileChange = event => {
+    setSelectedFile(event.target.files[0]);
+  };
+  const handleUpload = event => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("ProfilePic", selectedFile);
+    fetch("https://chaseflix-481df0d77a4b.herokuapp.com/upload", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      body: formData
+    }).then(response => response.json()).then(data => {
+      console.log(data);
+      alert("Profile picture uploaded successfully!");
+      onUpload(data.fileLocation);
+    }).catch(error => {
+      console.error("Error uploading file:", error);
+      alert("Failed to upload profile picture.");
+    });
+  };
+  return /*#__PURE__*/_react.default.createElement(_Form.default, {
+    onSubmit: handleUpload
+  }, /*#__PURE__*/_react.default.createElement(_Form.default.Group, null, /*#__PURE__*/_react.default.createElement(_Form.default.Label, null, "Upload Profile Picture"), /*#__PURE__*/_react.default.createElement(_Form.default.Control, {
+    type: "file",
+    onChange: handleFileChange
+  })), /*#__PURE__*/_react.default.createElement(_Button.default, {
+    type: "submit"
+  }, "Upload"));
+};
+exports.FileUploadForm = FileUploadForm;
+},{}],"components/navigation-bar/navigation-bar.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
