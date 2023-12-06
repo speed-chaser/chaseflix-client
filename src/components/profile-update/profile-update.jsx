@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "./profile-update.scss";
 import Modal from "react-bootstrap/Modal";
-import { FileUploadForm } from "./FileUploadForm/FileUploadForm";
+import { FileUploadForm } from "../file-upload-form/file-upload-form";
 
 export const ProfileUpdate = ({ user, token, setUser }) => {
   const [Username, setUsername] = useState("");
@@ -65,7 +65,7 @@ export const ProfileUpdate = ({ user, token, setUser }) => {
       className="text-light"
       style={{ display: "block", position: "initial" }}
     >
-      <h3>Update profile</h3>
+      <h3>Edit profile</h3>
       <br />
       <Form onSubmit={handleUpdateSubmit}>
         <Form.Group controlId="formUpUsername">
@@ -113,7 +113,7 @@ export const ProfileUpdate = ({ user, token, setUser }) => {
         <Form.Group controlId="formUpBio">
           <Form.Label>Bio</Form.Label>
           <Form.Control
-            as="textarea"
+            type="textarea"
             rows={3}
             value={Bio}
             onChange={(e) => setBio(e.target.value)}
